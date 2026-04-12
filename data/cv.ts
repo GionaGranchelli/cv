@@ -4,7 +4,7 @@ export const profile: Profile = {
   name: 'Giona Granchelli',
   title: 'Senior Software Engineer / Chapter Lead',
   tagline:
-    'Terminal-style CV showcase for backend, distributed systems, and platform engineering.'
+    'Engineering lead focused on distributed systems, platform modernization, and agentic AI workflows.'
 }
 
 export const photoUrl = '/photo.jpg'
@@ -12,7 +12,8 @@ export const photoUrl = '/photo.jpg'
 export const bootLines = [
   '[ ok ] Mounting profile data',
   '[ ok ] Loading experience blocks',
-  '[ ok ] Restoring skill matrix',
+  '[ ok ] Initializing QMD retrieval',
+  '[ ok ] Agentic environment ready',
   '[ ok ] Terminal ready'
 ]
 
@@ -30,6 +31,7 @@ export const listEntries = [
   { name: 'about', kind: 'file', perms: '-rw-r--r--', size: '1.2k', color: '#7dd3fc' },
   { name: 'experience', kind: 'dir', perms: 'drwxr-xr-x', size: '—', color: '#86efac' },
   { name: 'skills', kind: 'file', perms: '-rw-r--r--', size: '0.8k', color: '#fbbf24' },
+  { name: 'agentic', kind: 'file', perms: '-rw-r--r--', size: '1.5k', color: '#c084fc' },
   { name: 'education', kind: 'file', perms: '-rw-r--r--', size: '1.0k', color: '#c084fc' },
   { name: 'publications', kind: 'file', perms: '-rw-r--r--', size: '0.6k', color: '#fb7185' },
   { name: 'projects', kind: 'file', perms: '-rw-r--r--', size: '0.7k', color: '#38bdf8' },
@@ -203,6 +205,7 @@ export const commandList = [
   'help',
   'about',
   'skills',
+  'agentic',
   'experience',
   'experience ls',
   'experience abn-amro-bcdb',
@@ -237,18 +240,27 @@ function wrapSection(title: string, subtitle: string, body: string, accent = '#7
 }
 
 export const sections: Record<string, string> = {
-  help: `Available commands:<br>• help<br>• about<br>• skills<br>• experience<br>• experience ls<br>• experience &lt;slug&gt;<br>• next<br>• prev<br>• back<br>• education<br>• publications<br>• study<br>• projects<br>• contact<br>• clear<br>• ls<br>• cat cv<br>• neofetch`,
+  help: `Available commands:<br>• help<br>• about<br>• skills<br>• agentic (AI focus)<br>• experience<br>• experience ls<br>• experience &lt;slug&gt;<br>• next<br>• prev<br>• back<br>• education<br>• publications<br>• study<br>• projects<br>• contact<br>• clear<br>• ls<br>• cat cv<br>• neofetch`,
   about: wrapSection(
     'About',
     'Senior software engineer and chapter lead',
-    `Chapter Lead & senior software engineer with 10+ years of experience designing and modernising distributed systems in banking, fintech, and cloud-native environments. Creator of WhichDistro.com.`,
+    `Chapter Lead & senior software engineer with 10+ years of experience designing and modernising distributed systems. Currently pioneering <b>agentic coding workflows</b> and personal AI infrastructure to multiply engineering output.`,
     '#7dd3fc'
   ),
   skills: wrapSection(
     'Core Skills',
     'Stack and leadership breadth',
-    `Kotlin, Java, Spring Boot, REST APIs, microservices, Kafka, Kubernetes, Docker, Azure, AWS, Vue.js, Nuxt 3, TypeScript, Prisma, Zod, JWT, CI/CD`,
+    `Kotlin, Java, Spring Boot, REST APIs, microservices, Kafka, Kubernetes, Docker, Azure, AWS, Vue.js, Nuxt 3, TypeScript, Prisma, Zod, JWT, CI/CD, <b>Agentic Workflows</b>, <b>Context Engineering</b>, <b>Local RAG (QMD)</b>`,
     '#fbbf24'
+  ),
+  agentic: wrapSection(
+    'Agentic Coding & AI Infrastructure',
+    'Methodology and personal tooling',
+    `<b>Context Engineering</b>: Designing surgical codebase retrieval patterns to maintain high-precision LLM context.<br>
+    <b>Tool-Augmented LLMs</b>: Building CLI-first execution bridges (bash/shell) to enable autonomous agentic actions.<br>
+    <b>Local RAG (QMD)</b>: Developed a Query Markdown system for fast, local knowledge retrieval over 1,000+ personal and project documents.<br>
+    <b>Research (OpenClaw)</b>: Architecting a Kotlin Multiplatform (KMP) control surface for multi-model AI orchestration and stateful agent sessions.`,
+    '#c084fc'
   ),
   study: wrapSection(
     'Study',
@@ -258,11 +270,11 @@ export const sections: Record<string, string> = {
   ),
   projects: wrapSection(
     'Projects',
-    'Full-stack applications and tooling',
-    `<b>VU-Voetbal</b>: Match planning & team balancing platform for football groups. Built with Nuxt 3, Prisma, PostgreSQL, and Web Push. Features advanced balancing algorithms and skill progression.<br>
-    <b>Yous</b>: Bilingual (EN/IT) storytelling platform for personal growth and transformation. Built with Nuxt 3, Prisma, and PostgreSQL. Features multi-step story submission, an "admin moderation workflow", i18n, and a unique collaborative storytelling feature ("Between Yous").<br>
-    <b>OpenClaw & Terminal CV</b>: Agentic workflows, QMD retrieval systems, and interactive CLI-style interfaces.<br><br>
-    Creator of WhichDistro.com.`,
+    'Full-stack applications and AI research',
+    `<b>OpenClaw & QMD</b>: Research into agentic workflows and personal AI infrastructure. Built as a KMP/Ktor backend for autonomous execution and local knowledge retrieval.<br>
+    <b>VU-Voetbal</b> (<a href="https://vuvoetbal.gionag.com" target="_blank">vuvoetbal.gionag.com</a>): Match planning & team balancing platform for football groups. Built with Nuxt 3, Prisma, PostgreSQL, and Web Push.<br>
+    <b>Yous</b> (<a href="https://youscommunity.com" target="_blank">youscommunity.com</a>): Bilingual (EN/IT) storytelling platform for personal growth and transformation. Features multi-step story submission and collaborative storytelling.<br><br>
+    Creator of <a href="https://whichdistro.com" target="_blank">WhichDistro.com</a>.`,
     '#38bdf8'
   ),
   contact: wrapSection(
@@ -272,21 +284,22 @@ export const sections: Record<string, string> = {
     '#86efac'
   ),
   clear: '',
-  ls: `about  experience  skills  education  publications  projects  contact`,
-  'cat cv': `{{resume}}`,
-  neofetch: 'neofetch'
+  ls: `about  experience  skills  agentic  education  publications  projects  contact`,
+  'cat cv': `{{resume}}`
 }
 
 export const resume = `
 <b>Professional Experience</b><br>
 ABN AMRO - BCDB, Chapter Lead Java & VueJS | Software Engineer IV<br>
 Leading technical modernization across a banking department responsible for legacy services and critical data flows, with a focus on cloud migration, engineering enablement, and reliability improvement.<br><br>
+<b>AI & Agentic Systems</b><br>
+Actively developing <b>agentic coding workflows</b> and personal AI infrastructure (OpenClaw, QMD). Focus on context engineering, tool-use orchestration, and building autonomous engineering assistants using Kotlin Multiplatform and local RAG systems.<br><br>
 <b>Core Skills</b><br>
-Finance & core modernization, backend engineering, data & integration, cloud & platform, frontend, architecture & leadership<br><br>
+Finance & core modernization, backend engineering, cloud & platform, <b>Agentic AI Orchestration</b>, architecture & leadership<br><br>
 <b>Projects & Contributions</b><br>
-<b>VU-Voetbal</b>: Match planning & team balancing platform for football groups (Nuxt 3, Prisma, Web Push).<br>
-<b>Yous</b>: Bilingual storytelling platform for personal growth and transformation (Nuxt 3, i18n, JWT rotation).<br>
-<b>WhichDistro.com</b>: Creator of the popular Linux distribution selection tool.
+<b>VU-Voetbal</b>: Match planning & team balancing platform for football groups (<a href="https://vuvoetbal.gionag.com" target="_blank">vuvoetbal.gionag.com</a>).<br>
+<b>Yous</b>: Bilingual storytelling platform for personal growth and transformation (<a href="https://youscommunity.com" target="_blank">youscommunity.com</a>).<br>
+<b>WhichDistro.com</b>: Creator of the popular Linux distribution selection tool (<a href="https://whichdistro.com" target="_blank">whichdistro.com</a>).
 `
 
 export function experienceListOutput() {
@@ -344,7 +357,21 @@ export function renderPublications() {
 }
 
 export function renderNeofetch() {
-  return 'neofetch'
+  return `
+<div class="neo-card-wrap">
+  <div class="neo-card">
+    <img class="neo-photo" src="${photoUrl}" alt="${profile.name} photo" />
+    <div class="neo-meta">
+      <div class="neo-row"><span class="neo-label">name</span><span class="neo-value">${profile.name}</span></div>
+      <div class="neo-row"><span class="neo-label">title</span><span class="neo-value">${profile.title}</span></div>
+      <div class="neo-row"><span class="neo-label">ai-focus</span><span class="neo-value">Agentic Workflows & Infrastructure</span></div>
+      <div class="neo-row"><span class="neo-label">stack</span><span class="neo-value">Kotlin, Java, Vue, Azure, Kubernetes</span></div>
+      <div class="neo-row"><span class="neo-label">focus</span><span class="neo-value">Banking, fintech, distributed systems</span></div>
+      <div class="neo-row"><span class="neo-label">site</span><span class="neo-value">WhichDistro.com</span></div>
+    </div>
+  </div>
+</div>
+  `.trim()
 }
 
 export function resolveOutput(command: string) {

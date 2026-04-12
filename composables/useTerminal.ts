@@ -8,6 +8,7 @@ export function useTerminal() {
   const historyIndex = ref(-1)
   const activeExperienceIndex = ref(0)
   const autocompleteHint = ref('')
+  const isTourActive = ref(false)
   let nextId = 1
 
   const suggestions = computed(() => {
@@ -54,41 +55,48 @@ export function useTerminal() {
       }
       return `Unknown experience slug. Try: experience ls`
     }
-    if (key === 'cat cv') return sections['cat cv']
     return resolveOutput(value)
   }
 
-  function submit() {
-    const value = command.value.trim()
-    if (!value) return false
-    if (value === 'clear') {
+  function runCommand(value: string) {
+    const trimmed = value.trim()
+    if (!trimmed) return false
+    if (trimmed === 'clear') {
       history.value = []
       command.value = ''
       autocompleteHint.value = ''
       return true
     }
-    const output = resolveCommand(value)
-    history.value.push({ id: nextId++, command: value, output })
-    commandLog.value.push(value)
+    const output = resolveCommand(trimmed)
+    history.value.push({ id: nextId++, command: trimmed, output })
+    commandLog.value.push(trimmed)
     historyIndex.value = commandLog.value.length
     command.value = ''
     autocompleteHint.value = ''
     return true
   }
 
+  function submit() {
+    isTourActive.value = false
+    return runCommand(command.value)
+  }
+
   function prev() {
+    isTourActive.value = false
     if (!commandLog.value.length) return
     historyIndex.value = Math.max(0, historyIndex.value - 1)
     command.value = commandLog.value[historyIndex.value] ?? ''
   }
 
   function next() {
+    isTourActive.value = false
     if (!commandLog.value.length) return
     historyIndex.value = Math.min(commandLog.value.length, historyIndex.value + 1)
     command.value = commandLog.value[historyIndex.value] ?? ''
   }
 
   function autocomplete() {
+    isTourActive.value = false
     const current = command.value.trim().toLowerCase()
     autocompleteHint.value = ''
     if (!current) return
@@ -112,9 +120,23 @@ export function useTerminal() {
   }
 
   function applySuggestion(value: string) {
+    isTourActive.value = false
     command.value = value
     autocompleteHint.value = value
   }
 
-  return { history, command, submit, prev, next, autocomplete, suggestions, applySuggestion, autocompleteHint }
+  return { 
+    history, 
+    command, 
+    submit, 
+    runCommand,
+    prev, 
+    next, 
+    autocomplete, 
+    suggestions, 
+    applySuggestion, 
+    autocompleteHint,
+    isTourActive 
+  }
 }
+
