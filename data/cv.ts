@@ -247,7 +247,7 @@ export const sections: Record<string, string> = {
   skills: wrapSection(
     'Core Skills',
     'Stack and leadership breadth',
-    `Kotlin, Java, Spring Boot, REST APIs, microservices, event-driven systems, Kafka, CQRS, Kubernetes, Docker, Azure, AWS, CI/CD, Vue.js, TypeScript`,
+    `Kotlin, Java, Spring Boot, REST APIs, microservices, Kafka, Kubernetes, Docker, Azure, AWS, Vue.js, Nuxt 3, TypeScript, Prisma, Zod, JWT, CI/CD`,
     '#fbbf24'
   ),
   study: wrapSection(
@@ -258,8 +258,11 @@ export const sections: Record<string, string> = {
   ),
   projects: wrapSection(
     'Projects',
-    'Side projects and tooling',
-    `OpenClaw, terminal CV concept, backend-first tooling, platform automation, QMD retrieval, graph knowledge base, agent workflows.<br><br>Creator of WhichDistro.com.`,
+    'Full-stack applications and tooling',
+    `<b>VU-Voetbal</b>: Match planning & team balancing platform for football groups. Built with Nuxt 3, Prisma, PostgreSQL, and Web Push. Features advanced balancing algorithms and skill progression.<br>
+    <b>Yous</b>: Bilingual (EN/IT) storytelling platform for personal growth and transformation. Built with Nuxt 3, Prisma, and PostgreSQL. Features multi-step story submission, an "admin moderation workflow", i18n, and a unique collaborative storytelling feature ("Between Yous").<br>
+    <b>OpenClaw & Terminal CV</b>: Agentic workflows, QMD retrieval systems, and interactive CLI-style interfaces.<br><br>
+    Creator of WhichDistro.com.`,
     '#38bdf8'
   ),
   contact: wrapSection(
@@ -280,8 +283,10 @@ ABN AMRO - BCDB, Chapter Lead Java & VueJS | Software Engineer IV<br>
 Leading technical modernization across a banking department responsible for legacy services and critical data flows, with a focus on cloud migration, engineering enablement, and reliability improvement.<br><br>
 <b>Core Skills</b><br>
 Finance & core modernization, backend engineering, data & integration, cloud & platform, frontend, architecture & leadership<br><br>
-<b>AI Champion</b><br>
-Actively expanding AI-assisted software development capabilities, agentic workflows, and GenAI-supported engineering practices for coding, testing, documenting and developer productivity.
+<b>Projects & Contributions</b><br>
+<b>VU-Voetbal</b>: Match planning & team balancing platform for football groups (Nuxt 3, Prisma, Web Push).<br>
+<b>Yous</b>: Bilingual storytelling platform for personal growth and transformation (Nuxt 3, i18n, JWT rotation).<br>
+<b>WhichDistro.com</b>: Creator of the popular Linux distribution selection tool.
 `
 
 export function experienceListOutput() {
