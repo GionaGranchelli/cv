@@ -1,0 +1,24 @@
+:root {
+  color-scheme: dark;
+  --bg: #07110b;
+  --panel: rgba(8, 20, 13, 0.88);
+  --text: #d6ffe0;
+  --muted: #8dc99b;
+  --accent: #63ff9a;
+  --accent-2: #9fffbf;
+  --border: rgba(99, 255, 154, 0.18);
+}
+
+* { box-sizing: border-box; }
+html, body, #__nuxt { height: 100%; }
+body {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background:
+    radial-gradient(circle at top, rgba(99,255,154,0.08), transparent 40%),
+    linear-gradient(180deg, #06110a 0%, #020504 100%);
+  color: var(--text);
+}
+
+a { color: var(--accent); }
+button, input { font: inherit; }

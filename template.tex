@@ -1,0 +1,90 @@
+%% start of file `template.tex'.
+%% Copyright 2006-2013 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+\documentclass[10pt,a4paper,sans]{moderncv} % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+
+% moderncv themes
+\moderncvstyle{classic} % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{orange} % color options 'blue' (default), 'orange', 'green', 
+\usepackage{fontawesome}
+\providecommand\faSkype{{\FA\symbol{"F17E}}}
+
+\usepackage[scale=0.80]{geometry}
+\setlength{\hintscolumnwidth}{3cm} % if you want to change the column with the dates
+
+\name{Giona}{Granchelli}
+\title{Senior Software Engineer - Distributed System} 
+\phone[mobile]{+31~(0)6~427433~16}
+\email{giona.granchelli@gmail.com} 
+\social[linkedin]{giona-granchelli} 
+\social[github]{GionaGranchelli} 
+\extrainfo{\faSkype\ giona.granchelli} 
+\photo[64pt][0.4pt]{me-2.jpg} 
+\quote{Chapter Lead \& senior software engineer with 10+ years of experience designing and modernising distributed systems in banking, fintech, and cloud-native environments. Strong background in Kotlin/Java backend engineering, event-driven architectures, data pipelines, and legacy-to-modern transformation. Hands-on technical leader who combines architecture, coding, and engineering enablement to improve reliability, developer productivity, and migration outcomes. Actively exploring AI-assisted and agentic development practices to accelerate delivery while maintaining quality and engineering guardrails.}
+%----------------------------------------------------------------------------------
+% content
+%----------------------------------------------------------------------------------
+\begin{document}
+\vspace*{-2cm}
+\makecvtitle
+
+\section{Core Skills}
+\cvitem{Finance \& Core Modernisation}{
+Legacy modernization, regulated systems, reconciliation, ETL, financial data processing, migration patterns
+}
+\cvitem{Backend Engineering}{
+Kotlin, Java, Spring Boot, REST APIs, Microservices, event-driven systems
+}
+\cvitem{Data \& Integration}{
+Kafka, CQRS, schema evolution, data pipelines, API contracts, asynchronous messaging
+}
+\cvitem{Cloud \& Platform}{
+Kubernetes, Docker, Azure, AWS, CI/CD, developer platforms, observability, platform engineering
+}
+\cvitem{Frontend}{
+React, Vue.js, TypeScript
+}
+\cvitem{Architecture \& Leadership}{
+Distributed systems, legacy-to-modern transformation, technical mentorship, engineering standards
+}
+\cvline{}{}
+\section{Selected Leadership Impact}
+\cvitem{Technical Leadership}{
+Led modernization initiatives in banking environments, combining architecture work with hands-on implementation and developer enablement.
+}
+\cvitem{Engineering Enablement}{
+Built reusable tooling, CI/CD patterns, and platform capabilities that improved deployment reliability and accelerated cloud adoption.
+}
+\cvitem{Mentorship}{
+Provided technical guidance through code reviews, pairing, architectural discussions, and support for teams adopting modern engineering practices.
+}
+\cvitem{Reliability}{
+Improved operational robustness of critical financial data flows through better reconciliation, observability, and batch-processing reliability.
+}
+\cvitem{AI Champion in ABN Amro}{
+Actively expanding AI-assisted software development capabilities, agentic workflows, and GenAI-supported engineering practices for coding, testing, documenting and developer productivity.
+}
+\section{Professional Experience}
+\cventry{Oct 2024 - Now}{Chapter Lead Java \& VueJS | Software Engineer IV}
+{ABN AMRO - BCDB}
+{Amsterdam, Netherlands}
+{}{
+Leading technical modernization across a banking department responsible for legacy services and critical data flows, with a focus on cloud migration, engineering enablement, and reliability improvement.
+\begin{itemize}
+ \item Led modernization initiatives for legacy services, defining migration paths toward cloud-native architectures on Azure AKS.
+ \item Designed Kubernetes-based platform patterns, CI/CD pipelines, and developer tooling to standardize containerization and deployment across teams.
+ \item Built and improved reconciliation jobs validating financial data consistency across multiple banking systems in a regulated environment.
+ \item Designed ETL pipelines and transformation flows for large-scale financial and master data processing used by downstream services and reporting.
+ \item Improved reliability, observability, and operational robustness of batch and integration flows handling critical banking workloads.
+ \item Acted as a technical multiplier for multiple teams by introducing reusable engineering patterns, paved-road style tooling, and migration guidance.
+}
+
+% commented out experiences to be included in website later
+% \cventry{2019 - 2024}{Software Engineer}{Ximedes}{Netherlands}{}{Backend and integration work in financial software environments.}
+% \cventry{2017 - 2019}{Software Engineer}{BTC Direct / BLOX}{Netherlands}{}{Delivered backend and platform capabilities for crypto-related products.}
+% \cventry{2015 - 2017}{Software Engineer}{Trifork}{Netherlands}{}{Consulting-oriented engineering across enterprise teams and modern Java ecosystems.}
+% \cventry{2013 - 2015}{Software Engineer}{WoodWing}{Netherlands}{}{Product engineering in content and publishing-related systems.}
