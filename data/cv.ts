@@ -238,12 +238,14 @@ export const publications = [
   {
     id: 1,
     title: 'MicroART: A Software Architecture Recovery Tool for Maintaining Microservice-based Systems',
-    venue: 'Proceedings of the 14th International Conference on Software Architecture (ICSA), IEEE, 2017'
+    venue: 'Proceedings of the 14th International Conference on Software Architecture (ICSA), IEEE, 2017',
+    url: 'https://www.ivanomalavolta.com/files/papers/ICSA_2017_tool.pdf'
   },
   {
     id: 2,
     title: 'Towards Recovering the Software Architecture of Microservice-based Systems',
-    venue: 'IEEE International Workshop on Architecting with MicroServices (AMS), April 2017'
+    venue: 'IEEE International Workshop on Architecting with MicroServices (AMS), April 2017',
+    url: 'https://www.ivanomalavolta.com/files/papers/AMS_2017.pdf'
   }
 ]
 
@@ -478,10 +480,12 @@ export function renderEducation() {
 export function renderPublications() {
   return publications
     .map(pub => `
-<div class="section-block">
-  <div class="section-title" style="color:#fb7185">[${pub.id}] ${pub.title}</div>
-  <div class="section-body">${pub.venue}</div>
-</div>`)
+        <div class="section-block">
+          <div class="section-title" style="color:#fb7185">
+          <a href="${pub.url}">[${pub.id}] ${pub.title}</a>
+          </div>
+          <div class="section-body">${pub.venue}</div>
+        </div>`)
     .join('<br>')
 }
 
