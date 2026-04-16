@@ -10,18 +10,18 @@ if (!project) {
 }
 
 useSeoMeta({
-  title: `${project.name} | Giona Granchelli Project`,
+  title: project.name,
   description: project.description,
   ogTitle: `${project.name} | Giona Granchelli Project`,
   ogDescription: project.description,
   ogType: 'article',
-  ogUrl: `https://whichdistro.com/projects/${project.slug}`,
-  ogImage: project.ogImage ? `https://whichdistro.com${project.ogImage}` : 'https://whichdistro.com/photo.jpg',
+  ogUrl: `https://gionag.com/projects/${project.slug}`,
+  ogImage: project.ogImage ? `https://gionag.com${project.ogImage}` : 'https://gionag.com/photo.jpg',
   twitterCard: 'summary_large_image'
 })
 
 useHead({
-  link: [{ rel: 'canonical', href: `https://whichdistro.com/projects/${project.slug}` }],
+  link: [{ rel: 'canonical', href: `https://gionag.com/projects/${project.slug}` }],
   script: [
     {
       type: 'application/ld+json',
@@ -33,13 +33,13 @@ useHead({
             '@type': 'ListItem',
             'position': 1,
             'name': 'Home',
-            'item': 'https://whichdistro.com'
+            'item': 'https://gionag.com'
           },
           {
             '@type': 'ListItem',
             'position': 2,
             'name': project.name,
-            'item': `https://whichdistro.com/projects/${project.slug}`
+            'item': `https://gionag.com/projects/${project.slug}`
           }
         ]
       })

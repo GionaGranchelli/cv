@@ -10,18 +10,18 @@ if (!article) {
 }
 
 useSeoMeta({
-  title: `${article.title} | Giona Granchelli`,
+  title: article.title,
   description: article.description,
-  ogTitle: article.title,
+  ogTitle: `${article.title} | Giona Granchelli`,
   ogDescription: article.description,
   ogType: 'article',
-  ogUrl: `https://whichdistro.com/articles/${article.slug}`,
-  ogImage: article.ogImage ? `https://whichdistro.com${article.ogImage}` : 'https://whichdistro.com/photo.jpg',
+  ogUrl: `https://gionag.com/articles/${article.slug}`,
+  ogImage: article.ogImage ? `https://gionag.com${article.ogImage}` : 'https://gionag.com/photo.jpg',
   twitterCard: 'summary_large_image'
 })
 
 useHead({
-  link: [{ rel: 'canonical', href: `https://whichdistro.com/articles/${article.slug}` }],
+  link: [{ rel: 'canonical', href: `https://gionag.com/articles/${article.slug}` }],
   script: [
     {
       type: 'application/ld+json',
@@ -33,19 +33,19 @@ useHead({
             '@type': 'ListItem',
             'position': 1,
             'name': 'Home',
-            'item': 'https://whichdistro.com'
+            'item': 'https://gionag.com'
           },
           {
             '@type': 'ListItem',
             'position': 2,
             'name': 'Articles',
-            'item': 'https://whichdistro.com/articles'
+            'item': 'https://gionag.com/articles'
           },
           {
             '@type': 'ListItem',
             'position': 3,
             'name': article.title,
-            'item': `https://whichdistro.com/articles/${article.slug}`
+            'item': `https://gionag.com/articles/${article.slug}`
           }
         ]
       })
@@ -60,13 +60,13 @@ useHead({
         'author': {
           '@type': 'Person',
           'name': 'Giona Granchelli',
-          'url': 'https://whichdistro.com'
+          'url': 'https://gionag.com'
         },
         'datePublished': article.date,
-        'image': article.ogImage ? `https://whichdistro.com${article.ogImage}` : 'https://whichdistro.com/photo.jpg',
+        'image': article.ogImage ? `https://gionag.com${article.ogImage}` : 'https://gionag.com/photo.jpg',
         'mainEntityOfPage': {
           '@type': 'WebPage',
-          '@id': `https://whichdistro.com/articles/${article.slug}`
+          '@id': `https://gionag.com/articles/${article.slug}`
         }
       })
     }

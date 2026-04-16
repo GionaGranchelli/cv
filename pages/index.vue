@@ -7,24 +7,24 @@
 
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Giona Granchelli | Senior Software Engineer / Chapter Lead',
+  title: 'Senior Software Engineer & Chapter Lead',
   description:
     'Terminal-style CV for Giona Granchelli, senior software engineer and chapter lead in banking, fintech, cloud, and distributed systems. Includes experience, education, publications, and downloadable CV.',
-  ogTitle: 'Giona Granchelli | Senior Software Engineer / Chapter Lead',
+  ogTitle: 'Giona Granchelli | Senior Software Engineer & Chapter Lead',
   ogDescription:
     'Terminal-style CV for Giona Granchelli, senior software engineer and chapter lead in banking, fintech, cloud, and distributed systems.',
   ogType: 'profile',
-  ogUrl: 'https://whichdistro.com',
-  ogImage: 'https://whichdistro.com/photo.jpg',
+  ogUrl: 'https://gionag.com',
+  ogImage: 'https://gionag.com/photo.jpg',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Giona Granchelli | Senior Software Engineer / Chapter Lead',
+  twitterTitle: 'Giona Granchelli | Senior Software Engineer & Chapter Lead',
   twitterDescription:
     'Terminal-style CV for Giona Granchelli, senior software engineer and chapter lead in banking, fintech, cloud, and distributed systems.',
-  twitterImage: 'https://whichdistro.com/photo.jpg'
+  twitterImage: 'https://gionag.com/photo.jpg'
 })
 
 useHead({
-  link: [{ rel: 'canonical', href: 'https://whichdistro.com' }],
+  link: [{ rel: 'canonical', href: 'https://gionag.com' }],
   script: [
     {
       type: 'application/ld+json',
@@ -32,8 +32,8 @@ useHead({
         '@context': 'https://schema.org',
         '@type': 'Person',
         name: 'Giona Granchelli',
-        jobTitle: 'Senior Software Engineer / Chapter Lead',
-        url: 'https://whichdistro.com',
+        jobTitle: 'Senior Software Engineer & Chapter Lead',
+        url: 'https://gionag.com',
         sameAs: [
           'https://www.linkedin.com/in/giona-granchelli',
           'https://github.com/GionaGranchelli'

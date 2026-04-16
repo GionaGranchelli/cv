@@ -2,16 +2,17 @@
 import { articles } from '~/data/articles'
 
 useSeoMeta({
-  title: 'Technical Articles | Giona Granchelli',
+  title: 'Technical Articles',
   description: 'Deep dives into agentic workflows, cloud modernization, and software architecture.',
   ogTitle: 'Technical Articles | Giona Granchelli',
   ogDescription: 'Deep dives into agentic workflows, cloud modernization, and software architecture.',
   ogType: 'website',
-  ogUrl: 'https://whichdistro.com/articles'
+  ogUrl: 'https://gionag.com/articles',
+  ogImage: 'https://gionag.com/photo.jpg'
 })
 
 useHead({
-  link: [{ rel: 'canonical', href: 'https://whichdistro.com/articles' }],
+  link: [{ rel: 'canonical', href: 'https://gionag.com/articles' }],
   script: [
     {
       type: 'application/ld+json',
@@ -23,13 +24,13 @@ useHead({
             '@type': 'ListItem',
             'position': 1,
             'name': 'Home',
-            'item': 'https://whichdistro.com'
+            'item': 'https://gionag.com'
           },
           {
             '@type': 'ListItem',
             'position': 2,
             'name': 'Articles',
-            'item': 'https://whichdistro.com/articles'
+            'item': 'https://gionag.com/articles'
           }
         ]
       })
@@ -48,7 +49,7 @@ useHead({
         'blogPost': articles.map(article => ({
           '@type': 'BlogPosting',
           'headline': article.title,
-          'url': `https://whichdistro.com/articles/${article.slug}`,
+          'url': `https://gionag.com/articles/${article.slug}`,
           'datePublished': article.date
         }))
       })

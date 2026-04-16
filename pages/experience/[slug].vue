@@ -10,21 +10,21 @@ if (!experience) {
 }
 
 useSeoMeta({
-  title: `${experience.role} at ${experience.company} | Giona Granchelli`,
+  title: `${experience.role} at ${experience.company}`,
   description: experience.summary,
   ogTitle: `${experience.role} at ${experience.company} | Giona Granchelli`,
   ogDescription: experience.summary,
   ogType: 'article',
-  ogUrl: `https://whichdistro.com/experience/${experience.slug}`,
-  ogImage: experience.ogImage ? `https://whichdistro.com${experience.ogImage}` : 'https://whichdistro.com/photo.jpg',
+  ogUrl: `https://gionag.com/experience/${experience.slug}`,
+  ogImage: experience.ogImage ? `https://gionag.com${experience.ogImage}` : 'https://gionag.com/photo.jpg',
   twitterCard: 'summary_large_image',
   twitterTitle: `${experience.role} at ${experience.company} | Giona Granchelli`,
   twitterDescription: experience.summary,
-  twitterImage: experience.ogImage ? `https://whichdistro.com${experience.ogImage}` : 'https://whichdistro.com/photo.jpg'
+  twitterImage: experience.ogImage ? `https://gionag.com${experience.ogImage}` : 'https://gionag.com/photo.jpg'
 })
 
 useHead({
-  link: [{ rel: 'canonical', href: `https://whichdistro.com/experience/${experience.slug}` }],
+  link: [{ rel: 'canonical', href: `https://gionag.com/experience/${experience.slug}` }],
   script: [
     {
       type: 'application/ld+json',
@@ -36,13 +36,13 @@ useHead({
             '@type': 'ListItem',
             'position': 1,
             'name': 'Home',
-            'item': 'https://whichdistro.com'
+            'item': 'https://gionag.com'
           },
           {
             '@type': 'ListItem',
             'position': 2,
             'name': experience.company,
-            'item': `https://whichdistro.com/experience/${experience.slug}`
+            'item': `https://gionag.com/experience/${experience.slug}`
           }
         ]
       })
