@@ -6,7 +6,6 @@ export interface TourStep {
 }
 
 export const tourSteps: TourStep[] = [
-  { command: 'neofetch', delay: 3500 },
   { command: 'about', delay: 3500 },
   { command: 'skills', delay: 3500 },
   { command: 'experience abn-amro-bcdb', delay: 5000 },

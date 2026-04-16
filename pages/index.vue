@@ -1,5 +1,6 @@
 <template>
   <main class="shell">
+    <SsrContent />
     <TerminalWindow />
   </main>
 </template>
@@ -14,10 +15,12 @@ useSeoMeta({
     'Terminal-style CV for Giona Granchelli, senior software engineer and chapter lead in banking, fintech, cloud, and distributed systems.',
   ogType: 'profile',
   ogUrl: 'https://whichdistro.com',
+  ogImage: 'https://whichdistro.com/photo.jpg',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Giona Granchelli | Senior Software Engineer / Chapter Lead',
   twitterDescription:
-    'Terminal-style CV for Giona Granchelli, senior software engineer and chapter lead in banking, fintech, cloud, and distributed systems.'
+    'Terminal-style CV for Giona Granchelli, senior software engineer and chapter lead in banking, fintech, cloud, and distributed systems.',
+  twitterImage: 'https://whichdistro.com/photo.jpg'
 })
 
 useHead({

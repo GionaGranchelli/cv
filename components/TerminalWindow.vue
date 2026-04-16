@@ -23,7 +23,10 @@
       </Transition>
 
       <Transition name="fade">
-        <p v-if="showIdentity" class="identity">{{ identityTyped }}</p>
+        <div v-if="showIdentity" class="identity-block">
+          <p class="identity">{{ identityTyped }}</p>
+          <Neofetch />
+        </div>
       </Transition>
       <p v-if="showIdentity" class="tagline">{{ profile.tagline }}</p>
       <p v-if="showIdentity" class="hint">Type <b>help</b> to see available commands.</p>
@@ -36,6 +39,7 @@
       <div v-if="showIdentity" class="quick-actions">
         <button type="button" @click="runQuick('ls')">ls</button>
         <button type="button" @click="runQuick('experience ls')">experience ls</button>
+        <button type="button" @click="runQuick('articles')">articles</button>
         <button type="button" @click="runQuick('education')">education</button>
         <button type="button" @click="runQuick('publications')">publications</button>
         <button type="button" @click="runQuick('neofetch')">neofetch</button>
@@ -128,7 +132,36 @@ function runQuick(value: string) {
   onSubmit()
 }
 
+function handleGlobalClick(e: MouseEvent) {
+  if (!showIdentity.value) return
+  const target = e.target as HTMLElement
+  if (target.closest('a') || target.closest('button') || target.closest('input')) {
+    return
+  }
+  promptEl.value?.focus()
+}
+
+function handleWindowFocus() {
+  if (!showIdentity.value) return
+  promptEl.value?.focus()
+}
+
+function handleGlobalKeyDown(e: KeyboardEvent) {
+  if (!showIdentity.value) return
+  if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+    return
+  }
+  if (e.ctrlKey || e.metaKey || e.altKey) {
+    return
+  }
+  promptEl.value?.focus()
+}
+
 onMounted(async () => {
+  window.addEventListener('click', handleGlobalClick)
+  window.addEventListener('focus', handleWindowFocus)
+  window.addEventListener('keydown', handleGlobalKeyDown)
+
   await sleep(bootLines.length * 220 + 150)
   showWhoami.value = true
   await typeText(whoamiTyped, 'whoami', 70)
@@ -140,6 +173,12 @@ onMounted(async () => {
   startTour()
   
   nextTick(() => promptEl.value?.focus())
+})
+
+onUnmounted(() => {
+  window.removeEventListener('click', handleGlobalClick)
+  window.removeEventListener('focus', handleWindowFocus)
+  window.removeEventListener('keydown', handleGlobalKeyDown)
 })
 </script>
 
@@ -211,29 +250,6 @@ input:checked ~ .slider { animation: pulse-slider 2s infinite; }
   padding: 6px 10px;
   cursor: pointer;
 }
-.neo-card-wrap { margin: 14px 0 8px; }
-.screen :deep(.neo-card) {
-  display: grid;
-  grid-template-columns: 96px 1fr;
-  gap: 14px;
-  align-items: start;
-  padding: 14px;
-  border: 1px solid rgba(125, 211, 252, 0.12);
-  border-radius: 16px;
-  background: rgba(255,255,255,.03);
-}
-.screen :deep(.neo-photo) {
-  width: 96px;
-  height: 96px;
-  border-radius: 14px;
-  object-fit: cover;
-  border: 1px solid rgba(255,255,255,.12);
-  box-shadow: 0 0 0 1px rgba(125,211,252,.08), 0 10px 30px rgba(0,0,0,.35);
-}
-.screen :deep(.neo-meta) { display: grid; gap: 8px; min-width: 0; }
-.screen :deep(.neo-row) { display: flex; gap: 10px; flex-wrap: wrap; }
-.screen :deep(.neo-label) { color: #38bdf8; min-width: 56px; text-transform: uppercase; font-size: .8rem; letter-spacing: .06em; }
-.screen :deep(.neo-value) { color: #e2e8f0; }
 .fade-enter-active, .fade-leave-active { transition: opacity .35s ease, transform .35s ease; }
 .fade-enter-from, .fade-leave-to { opacity: 0; transform: translateY(4px); }
 .screen :deep(.section-block) { margin: 4px 0 10px; padding: 12px 14px; border-left: 2px solid rgba(56,189,248,.5); background: rgba(255,255,255,.02); border-radius: 12px; }

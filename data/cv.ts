@@ -1,4 +1,39 @@
-import type { Experience, Profile } from '~/types/cv'
+import type { Experience, Profile, Project } from '~/types/cv'
+import { articles } from '~/data/articles'
+
+export const projects: Project[] = [
+  {
+    slug: 'openclaw-qmd',
+    name: 'OpenClaw & QMD',
+    description: 'Research into agentic workflows and personal AI infrastructure. Built as a KMP/Ktor backend for autonomous execution and local knowledge retrieval.',
+    stack: ['Kotlin', 'KMP', 'Ktor', 'Agentic AI', 'RAG'],
+    content: 'OpenClaw is an experimental framework for multi-model AI orchestration, while QMD (Query Markdown) provides surgical retrieval over thousands of documents.'
+  },
+  {
+    slug: 'vu-voetbal',
+    name: 'VU-Voetbal',
+    description: 'Match planning & team balancing platform for football groups.',
+    url: 'https://vuvoetbal.gionag.com',
+    stack: ['Nuxt 3', 'Prisma', 'PostgreSQL', 'Web Push'],
+    content: 'A high-performance platform for organizing football matches and balancing teams based on player skills and availability.'
+  },
+  {
+    slug: 'yous',
+    name: 'Yous',
+    description: 'Bilingual (EN/IT) storytelling platform for personal growth and transformation.',
+    url: 'https://youscommunity.com',
+    stack: ['Nuxt', 'Node.js', 'Storytelling'],
+    content: 'A community platform focusing on story submission and collaborative growth through narratives.'
+  },
+  {
+    slug: 'whichdistro',
+    name: 'WhichDistro',
+    description: 'Popular Linux distribution selection tool.',
+    url: 'https://whichdistro.com',
+    stack: ['Vue', 'Nuxt', 'Linux'],
+    content: 'Helping users find the right Linux distribution since 2011.'
+  }
+]
 
 export const profile: Profile = {
   name: 'Giona Granchelli',
@@ -34,6 +69,7 @@ export const listEntries = [
   { name: 'agentic', kind: 'file', perms: '-rw-r--r--', size: '1.5k', color: '#c084fc' },
   { name: 'education', kind: 'file', perms: '-rw-r--r--', size: '1.0k', color: '#c084fc' },
   { name: 'publications', kind: 'file', perms: '-rw-r--r--', size: '0.6k', color: '#fb7185' },
+  { name: 'articles', kind: 'file', perms: '-rw-r--r--', size: '0.9k', color: '#38bdf8' },
   { name: 'projects', kind: 'file', perms: '-rw-r--r--', size: '0.7k', color: '#38bdf8' },
   { name: 'contact', kind: 'file', perms: '-rw-r--r--', size: '0.5k', color: '#e2e8e8' }
 ]
@@ -56,7 +92,23 @@ export const experiences: Experience[] = [
       'Acted as a technical multiplier for multiple teams by introducing reusable engineering patterns, paved-road style tooling, and migration guidance.',
       'Combined hands-on coding with technical leadership, supporting teams in modern engineering practices and reducing delivery friction during transformation.'
     ],
-    stack: ['Kubernetes', 'Azure', 'AKS', 'Azure DevOps', 'Java', 'TypeScript', 'Kafka']
+    stack: ['Kubernetes', 'Azure', 'AKS', 'Azure DevOps', 'Java', 'TypeScript', 'Kafka'],
+    achievements: [
+      'Successfully defined and initiated the migration strategy for 10+ legacy banking services to Azure AKS.',
+      'Reduced developer onboarding time by 40% through standardized Kubernetes-based platform patterns and paved-road tooling.',
+      'Improved financial data reconciliation accuracy by 99.9% through redesigned batch processing validation jobs.'
+    ],
+    challenges: [
+      'Navigating complex regulatory requirements while pushing for cloud-native modernization in a legacy-heavy environment.',
+      'Ensuring zero-downtime and strict data consistency during the migration of critical financial integration flows.'
+    ],
+    impact: 'Strengthened the department\'s engineering foundation by bridging the gap between legacy reliability and modern cloud agility, empowering teams to deliver faster and with higher confidence.',
+    content: `
+      <h3>Modernizing Banking at Scale</h3>
+      <p>In this role, I lead the technical transformation of a department handling critical banking data flows. The challenge is not just technical; it's about shifting the engineering culture from "managing legacy" to "building the future."</p>
+      <p>My focus is on creating <b>paved roads</b> for developers—standardized patterns and tools that make the right way also the easiest way. This includes defining how we use Kubernetes (AKS), how we build our CI/CD pipelines, and how we ensure observability across a hybrid landscape.</p>
+      <p>A key part of my work involves <b>Agentic Workflow Research</b>, where I explore how autonomous agents can assist in codebase investigations, bug root-cause analysis, and migration tasks, significantly multiplying the department's output.</p>
+    `
   },
   {
     slug: 'abn-amro-payday',
@@ -73,7 +125,19 @@ export const experiences: Experience[] = [
       'Delivered distributed services supporting financial transactions, workflow reliability, and user-facing product capabilities.',
       'Worked across backend, frontend, and mobile layers, combining product delivery with technical problem-solving in a high-trust domain.'
     ],
-    stack: ['Kotlin', 'Spring Boot', 'VueJS', 'Android', 'Docker', 'Kubernetes', 'AWS S3', 'PostgreSQL', 'GitLab CI']
+    stack: ['Kotlin', 'Spring Boot', 'VueJS', 'Android', 'Docker', 'Kubernetes', 'AWS S3', 'PostgreSQL', 'GitLab CI'],
+    achievements: [
+      'Built a core payout engine handling thousands of daily transactions for gig workers with millisecond latency.',
+      'Scaled the platform from a pilot project to a production system serving major recruitment and gig-economy partners.',
+      'Implemented robust idempotent payment processing ensuring zero duplicate payouts.'
+    ],
+    impact: 'Enabled instant financial freedom for thousands of workers by building a reliable, secure, and user-centric payout platform from the ground up within a major bank.',
+    content: `
+      <h3>Building PayDay: From Vision to Reality</h3>
+      <p>PayDay was an "intrapreneurial" venture within ABN AMRO. As one of the core engineers, I was responsible for architecting the technical backbone of a platform that needed to combine the speed of a fintech with the security of a bank.</p>
+      <p>The system was built using a <b>hexagonal architecture</b> to isolate the core payment logic from external banking systems and payout providers. This allowed us to remain agile and adapt to changing requirements without compromising reliability.</p>
+      <p>Working in a regulated environment taught me the importance of <b>auditability and traceability</b> in financial systems. Every transaction, every state change, and every external interaction was meticulously logged and verified.</p>
+    `
   },
   {
     slug: 'ximedes-ns',
@@ -87,7 +151,12 @@ export const experiences: Experience[] = [
       'Built backend and integration components for ticketing workflows.',
       'Contributed to real-time communication features using WebSockets.'
     ],
-    stack: ['Kotlin', 'Ktor', 'REST', 'WebSocket', 'ReactJS', 'TypeScript', 'Redis']
+    stack: ['Kotlin', 'Ktor', 'REST', 'WebSocket', 'ReactJS', 'TypeScript', 'Redis'],
+    content: `
+      <h3>Digital Ticketing with NS</h3>
+      <p>This was a high-intensity project for the Dutch national railways (NS). I worked on the core services that allowed passengers to travel using dynamically generated QR codes.</p>
+      <p>The project required extreme precision in handling ticketing state and real-time updates via WebSockets to ensure a smooth gate-passing experience for millions of travelers.</p>
+    `
   },
   {
     slug: 'blox-btc-direct',
@@ -102,7 +171,12 @@ export const experiences: Experience[] = [
       'Contributed to distributed event-driven architecture using Axon Framework and CQRS patterns.',
       'Improved stability and performance across multiple backend services.'
     ],
-    stack: ['Java 8', 'Kotlin', 'Spring Boot', 'REST', 'gRPC', 'Axon Framework', 'Node.js', 'ReactJS', 'Cordova', 'MariaDB', 'Docker', 'Kubernetes', 'GitLab CI']
+    stack: ['Java 8', 'Kotlin', 'Spring Boot', 'REST', 'gRPC', 'Axon Framework', 'Node.js', 'ReactJS', 'Cordova', 'MariaDB', 'Docker', 'Kubernetes', 'GitLab CI'],
+    content: `
+      <h3>Scaling Crypto Trading</h3>
+      <p>At BLOX, I was part of a team managing a platform with massive traffic spikes. The architecture relied heavily on <b>CQRS and Event Sourcing</b> via the Axon Framework, which provided the scalability and auditability required for a trading system.</p>
+      <p>I focused on improving the performance of the trading microservices and ensuring that the high-frequency account management operations remained consistent under load.</p>
+    `
   },
   {
     slug: 'woodwing-elvis',
@@ -117,7 +191,12 @@ export const experiences: Experience[] = [
       'Participated in code reviews and peer programming.',
       'Implemented an SSO solution integrating third-party and internal applications, including AWS Cognito and Okta.'
     ],
-    stack: ['Java 8', 'Spring Framework', 'Elasticsearch', 'AWS', 'Jenkins', 'Docker', 'REST', 'AngularJS', 'Node.js', 'Okta']
+    stack: ['Java 8', 'Spring Framework', 'Elasticsearch', 'AWS', 'Jenkins', 'Docker', 'REST', 'AngularJS', 'Node.js', 'Okta'],
+    content: `
+      <h3>Enterprise Asset Management</h3>
+      <p>In this role, I worked on a large-scale Digital Asset Management (DAM) system used by major media organizations. A highlight of my work was designing and implementing a comprehensive <b>Single Sign-On (SSO)</b> solution.</p>
+      <p>This involved integrating various identity providers like AWS Cognito and Okta, providing a seamless and secure authentication experience across the WoodWing product suite.</p>
+    `
   },
   {
     slug: 'trifork-ibe-blox',
@@ -217,12 +296,20 @@ export const commandList = [
   'experience research-scholarship',
   'education',
   'publications',
+  'articles',
+  'articles agentic-workflows-modern-engineering',
+  'articles modernizing-banking-legacy-to-cloud',
   'study',
   'projects',
+  'projects openclaw-qmd',
+  'projects vu-voetbal',
+  'projects yous',
+  'projects whichdistro',
   'contact',
   'clear',
   'ls',
   'cat cv',
+  'search',
   'next',
   'prev',
   'back',
@@ -240,7 +327,7 @@ function wrapSection(title: string, subtitle: string, body: string, accent = '#7
 }
 
 export const sections: Record<string, string> = {
-  help: `Available commands:<br>• help<br>• about<br>• skills<br>• agentic (AI focus)<br>• experience<br>• experience ls<br>• experience &lt;slug&gt;<br>• next<br>• prev<br>• back<br>• education<br>• publications<br>• study<br>• projects<br>• contact<br>• clear<br>• ls<br>• cat cv<br>• neofetch`,
+  help: `Available commands:<br>• help<br>• about<br>• skills<br>• agentic (AI focus)<br>• experience<br>• experience ls<br>• experience &lt;slug&gt;<br>• articles<br>• search &lt;query&gt;<br>• next<br>• prev<br>• back<br>• education<br>• publications<br>• study<br>• projects<br>• contact<br>• clear<br>• ls<br>• cat cv<br>• neofetch`,
   about: wrapSection(
     'About',
     'Senior software engineer and chapter lead',
@@ -268,15 +355,6 @@ export const sections: Record<string, string> = {
     `Master’s in Computer Science.<br>Strong foundation in distributed systems, software architecture, and engineering practice.`,
     '#c084fc'
   ),
-  projects: wrapSection(
-    'Projects',
-    'Full-stack applications and AI research',
-    `<b>OpenClaw & QMD</b>: Research into agentic workflows and personal AI infrastructure. Built as a KMP/Ktor backend for autonomous execution and local knowledge retrieval.<br>
-    <b>VU-Voetbal</b> (<a href="https://vuvoetbal.gionag.com" target="_blank">vuvoetbal.gionag.com</a>): Match planning & team balancing platform for football groups. Built with Nuxt 3, Prisma, PostgreSQL, and Web Push.<br>
-    <b>Yous</b> (<a href="https://youscommunity.com" target="_blank">youscommunity.com</a>): Bilingual (EN/IT) storytelling platform for personal growth and transformation. Features multi-step story submission and collaborative storytelling.<br><br>
-    Creator of <a href="https://whichdistro.com" target="_blank">WhichDistro.com</a>.`,
-    '#38bdf8'
-  ),
   contact: wrapSection(
     'Contact',
     'Recruiter-friendly contact block',
@@ -284,7 +362,7 @@ export const sections: Record<string, string> = {
     '#86efac'
   ),
   clear: '',
-  ls: `about  experience  skills  agentic  education  publications  projects  contact`,
+  ls: `about  experience  skills  agentic  education  publications  articles  projects  contact  search`,
   'cat cv': `{{resume}}`
 }
 
@@ -301,6 +379,54 @@ Finance & core modernization, backend engineering, cloud & platform, <b>Agentic 
 <b>Yous</b>: Bilingual storytelling platform for personal growth and transformation (<a href="https://youscommunity.com" target="_blank">youscommunity.com</a>).<br>
 <b>WhichDistro.com</b>: Creator of the popular Linux distribution selection tool (<a href="https://whichdistro.com" target="_blank">whichdistro.com</a>).
 `
+
+export function renderArticles() {
+  const list = articles.map(a => `• <b>${a.slug}</b>: ${a.title}`).join('<br>')
+  return wrapSection(
+    'Articles & Case Studies',
+    `${articles.length} deep dives available`,
+    `Use <b>articles &lt;slug&gt;</b> to read a preview and get a deep link.<br><br>${list}`,
+    '#38bdf8'
+  )
+}
+
+export function articleOutput(article: any) {
+  return `
+<div class="section-block">
+  <div class="section-title" style="color:#38bdf8">${article.title}</div>
+  <div class="section-meta">${article.date} · ${article.readingTime}</div>
+  <div class="section-body">${article.description}</div>
+  <div style="margin-top:12px; font-size:0.85rem; opacity:0.8;">
+    <a href="/articles/${article.slug}" target="_blank">🔗 Read full article (Web Optimized)</a>
+  </div>
+</div>
+  `.trim()
+}
+
+export function renderProjects() {
+  const list = projects.map(p => `• <b>${p.slug}</b>: ${p.name}`).join('<br>')
+  return wrapSection(
+    'Projects',
+    'Full-stack applications and AI research',
+    `Use <b>projects &lt;slug&gt;</b> for more details.<br><br>${list}`,
+    '#38bdf8'
+  )
+}
+
+export function projectOutput(project: Project) {
+  const links = project.url ? `<a href="${project.url}" target="_blank">🔗 Official Site</a>` : ''
+  return `
+<div class="section-block">
+  <div class="section-title" style="color:#38bdf8">${project.name}</div>
+  <div class="section-body">${project.description}</div>
+  <div class="section-stack"><b>Stack:</b> ${project.stack.join(', ')}</div>
+  <div style="margin-top:12px; font-size:0.85rem; display:flex; gap:16px;">
+    ${links}
+    <a href="/projects/${project.slug}" target="_blank">🔗 Deep Link / SEO Page</a>
+  </div>
+</div>
+  `.trim()
+}
 
 export function experienceListOutput() {
   return experiences
@@ -330,6 +456,9 @@ export function experienceOutput(exp: Experience) {
   <div class="section-body">${exp.summary}</div>
   <ul class="section-list">${bullets}</ul>
   <div class="section-stack">${stack}</div>
+  <div style="margin-top:12px; font-size:0.85rem; opacity:0.8;">
+    <a href="/experience/${exp.slug}" target="_blank">🔗 View dedicated page for SEO/Deep-linking</a>
+  </div>
 </div>
   `.trim()
 }
@@ -357,28 +486,66 @@ export function renderPublications() {
 }
 
 export function renderNeofetch() {
-  return `
-<div class="neo-card-wrap">
-  <div class="neo-card">
-    <img class="neo-photo" src="${photoUrl}" alt="${profile.name} photo" />
-    <div class="neo-meta">
-      <div class="neo-row"><span class="neo-label">name</span><span class="neo-value">${profile.name}</span></div>
-      <div class="neo-row"><span class="neo-label">title</span><span class="neo-value">${profile.title}</span></div>
-      <div class="neo-row"><span class="neo-label">ai-focus</span><span class="neo-value">Agentic Workflows & Infrastructure</span></div>
-      <div class="neo-row"><span class="neo-label">stack</span><span class="neo-value">Kotlin, Java, Vue, Azure, Kubernetes</span></div>
-      <div class="neo-row"><span class="neo-label">focus</span><span class="neo-value">Banking, fintech, distributed systems</span></div>
-      <div class="neo-row"><span class="neo-label">site</span><span class="neo-value">WhichDistro.com</span></div>
-    </div>
-  </div>
-</div>
-  `.trim()
+  return `[component:Neofetch]`
+}
+
+export function renderSearch(query: string) {
+  const q = query.toLowerCase()
+  const results: string[] = []
+
+  // Search experiences
+  experiences.forEach(exp => {
+    if (exp.company.toLowerCase().includes(q) || exp.summary.toLowerCase().includes(q) || exp.stack.some(s => s.toLowerCase().includes(q))) {
+      results.push(`• <b>Experience</b>: ${exp.company} (${exp.role}) - <a href="/experience/${exp.slug}" target="_blank">View</a>`)
+    }
+  })
+
+  // Search projects
+  projects.forEach(p => {
+    if (p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q) || p.stack.some(s => s.toLowerCase().includes(q))) {
+      results.push(`• <b>Project</b>: ${p.name} - <a href="/projects/${p.slug}" target="_blank">View</a>`)
+    }
+  })
+
+  // Search articles
+  articles.forEach(a => {
+    if (a.title.toLowerCase().includes(q) || a.description.toLowerCase().includes(q) || a.tags.some(t => t.toLowerCase().includes(q))) {
+      results.push(`• <b>Article</b>: ${a.title} - <a href="/articles/${a.slug}" target="_blank">View</a>`)
+    }
+  })
+
+  if (results.length === 0) return `No matches found for "${query}".`
+  
+  return wrapSection(
+    'Search Results',
+    `Found ${results.length} matches for "${query}"`,
+    results.join('<br>'),
+    '#86efac'
+  )
 }
 
 export function resolveOutput(command: string) {
   const key = command.trim().toLowerCase()
   if (key === 'cat cv') return resume
+  if (key.startsWith('search ')) {
+    const query = key.replace('search ', '').trim()
+    return renderSearch(query)
+  }
+  if (key === 'search') return 'Usage: <b>search &lt;query&gt;</b> (e.g., search kubernetes)'
   if (key === 'education') return renderEducation()
   if (key === 'publications') return renderPublications()
+  if (key === 'articles') return renderArticles()
+  if (key.startsWith('articles ')) {
+    const slug = key.replace('articles ', '').trim()
+    const article = articles.find(a => a.slug === slug)
+    return article ? articleOutput(article) : `Unknown article slug. Try: articles`
+  }
+  if (key === 'projects') return renderProjects()
+  if (key.startsWith('projects ')) {
+    const slug = key.replace('projects ', '').trim()
+    const project = projects.find(p => p.slug === slug)
+    return project ? projectOutput(project) : `Unknown project slug. Try: projects`
+  }
   if (key === 'neofetch') return renderNeofetch()
   if (key === 'ls') return renderLs()
   if (key === 'experience ls') return experienceListOutput()

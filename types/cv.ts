@@ -26,6 +26,17 @@ export type Profile = {
   tagline: string
 }
 
+export type Project = {
+  slug: string
+  name: string
+  description: string
+  url?: string
+  repo?: string
+  stack: string[]
+  content: string
+  ogImage?: string
+}
+
 export type Experience = {
   stack: string[];
   slug: string
@@ -35,5 +46,9 @@ export type Experience = {
   location: string
   summary: string
   bullets: string[]
-  
+  content?: string
+  achievements?: string[]
+  challenges?: string[]
+  impact?: string
+  ogImage?: string
 }

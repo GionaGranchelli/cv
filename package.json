@@ -11,5 +11,9 @@
   "dependencies": {
     "@nuxt/image": "^2.0.0",
     "nuxt": "^3.13.2"
+  },
+  "devDependencies": {
+    "@nuxtjs/robots": "^6.0.7",
+    "@nuxtjs/sitemap": "^8.0.12"
   }
 }

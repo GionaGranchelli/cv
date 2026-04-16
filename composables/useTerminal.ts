@@ -26,7 +26,12 @@ export function useTerminal() {
   }
 
   function allAutocompleteOptions() {
-    return [...commandList, ...experiences.map(e => `experience ${e.slug}`)]
+    return [
+      ...commandList, 
+      ...experiences.map(e => `experience ${e.slug}`),
+      ...articles.map(a => `articles ${a.slug}`),
+      ...projects.map(p => `projects ${p.slug}`)
+    ]
   }
 
   function resolveCommand(value: string) {
