@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@nuxt/image": "^2.0.0",
-    "nuxt": "^3.13.2"
+    "nuxt": "^3.13.2",
+    "nuxt-umami": "^2.6.7"
   },
   "devDependencies": {
     "@nuxtjs/robots": "^6.0.7",

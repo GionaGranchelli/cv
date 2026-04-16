@@ -40,18 +40,31 @@ export function useTour(
 
   async function startTour() {
     isTourActive.value = true
+    if (typeof umTrackEvent === 'function') {
+      umTrackEvent('tour-started')
+    }
     
     // Initial wait after boot
     await sleep(1500)
     
+    let interrupted = false
     for (const step of tourSteps) {
-      if (!isTourActive.value) break
+      if (!isTourActive.value) {
+        interrupted = true
+        break
+      }
 
       const success = await typeText(command, step.command)
-      if (!success || !isTourActive.value) break
+      if (!success || !isTourActive.value) {
+        interrupted = true
+        break
+      }
 
       await sleep(400)
-      if (!isTourActive.value) break
+      if (!isTourActive.value) {
+        interrupted = true
+        break
+      }
       
       runCommand(step.command)
       if (onStepExecuted) onStepExecuted()
@@ -59,7 +72,14 @@ export function useTour(
       await sleep(step.delay)
     }
 
+    if (interrupted && typeof umTrackEvent === 'function') {
+      umTrackEvent('tour-interrupted')
+    }
+
     if (isTourActive.value) {
+      if (typeof umTrackEvent === 'function') {
+        umTrackEvent('tour-completed')
+      }
       isTourActive.value = false
       command.value = ''
       runCommand('help')

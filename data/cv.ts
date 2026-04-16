@@ -481,7 +481,7 @@ export function renderPublications() {
   return publications
     .map(pub => `
         <div class="section-block">
-          <div class="section-title" style="color:#fb7185">
+          <div class="section-title" style="color:#fb7185">mo
           <a href="${pub.url}">[${pub.id}] ${pub.title}</a>
           </div>
           <div class="section-body">${pub.venue}</div>

@@ -31,18 +31,18 @@
       <p v-if="showIdentity" class="tagline">{{ profile.tagline }}</p>
       <p v-if="showIdentity" class="hint">Type <b>help</b> to see available commands.</p>
       <p v-if="showIdentity" class="download">
-        <a href="/Curriculum_Giona_Latex.pdf" download>download cv</a>
+        <a href="/Curriculum_Giona_Latex.pdf" download v-umami="'download-cv'">download cv</a>
         <span class="sep">·</span>
-        <a href="https://whichdistro.com" target="_blank" rel="noreferrer">whichdistro.com</a>
+        <a href="https://whichdistro.com" target="_blank" rel="noreferrer" v-umami="'visit-whichdistro'">whichdistro.com</a>
       </p>
 
       <div v-if="showIdentity" class="quick-actions">
-        <button type="button" @click="runQuick('ls')">ls</button>
-        <button type="button" @click="runQuick('experience ls')">experience ls</button>
-        <button type="button" @click="runQuick('articles')">articles</button>
-        <button type="button" @click="runQuick('education')">education</button>
-        <button type="button" @click="runQuick('publications')">publications</button>
-        <button type="button" @click="runQuick('neofetch')">neofetch</button>
+        <button type="button" @click="runQuick('ls')" v-umami="'quick-ls'">ls</button>
+        <button type="button" @click="runQuick('experience ls')" v-umami="'quick-experience-ls'">experience ls</button>
+        <button type="button" @click="runQuick('articles')" v-umami="'quick-articles'">articles</button>
+        <button type="button" @click="runQuick('education')" v-umami="'quick-education'">education</button>
+        <button type="button" @click="runQuick('publications')" v-umami="'quick-publications'">publications</button>
+        <button type="button" @click="runQuick('neofetch')" v-umami="'quick-neofetch'">neofetch</button>
       </div>
 
       <CommandHistory v-if="showIdentity" :history="history" />
@@ -87,6 +87,17 @@ const showWhoami = ref(false)
 const showIdentity = ref(false)
 const whoamiTyped = ref('')
 const identityTyped = ref('')
+const bootFinishedAt = ref<number | null>(null)
+const firstInteractionTracked = ref(false)
+
+function trackFirstInteraction() {
+  if (firstInteractionTracked.value || !bootFinishedAt.value) return
+  firstInteractionTracked.value = true
+  if (typeof umTrackEvent === 'function') {
+    const seconds = Math.round((Date.now() - bootFinishedAt.value) / 1000)
+    umTrackEvent('first-interaction', { seconds })
+  }
+}
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -105,9 +116,16 @@ const { startTour } = useTour(isTourActive, command, (cmd) => {
 }, scrollToBottom)
 
 function toggleTour() {
+  trackFirstInteraction()
   if (isTourActive.value) {
     isTourActive.value = false
+    if (typeof umTrackEvent === 'function') {
+      umTrackEvent('tour-toggled', { action: 'off' })
+    }
   } else {
+    if (typeof umTrackEvent === 'function') {
+      umTrackEvent('tour-toggled', { action: 'on' })
+    }
     startTour()
   }
 }
@@ -121,12 +139,14 @@ async function typeText(target: Ref<string>, text: string, delay = 45) {
 }
 
 function onSubmit() {
+  trackFirstInteraction()
   if (!submit()) return
   scrollToBottom()
   promptEl.value?.focus()
 }
 
 function runQuick(value: string) {
+  trackFirstInteraction()
   isTourActive.value = false
   command.value = value
   onSubmit()
@@ -138,6 +158,7 @@ function handleGlobalClick(e: MouseEvent) {
   if (target.closest('a') || target.closest('button') || target.closest('input')) {
     return
   }
+  trackFirstInteraction()
   promptEl.value?.focus()
 }
 
@@ -154,6 +175,7 @@ function handleGlobalKeyDown(e: KeyboardEvent) {
   if (e.ctrlKey || e.metaKey || e.altKey) {
     return
   }
+  trackFirstInteraction()
   promptEl.value?.focus()
 }
 
@@ -168,6 +190,8 @@ onMounted(async () => {
   await sleep(120)
   showIdentity.value = true
   await typeText(identityTyped, `${profile.name} — ${profile.title}`, 28)
+  
+  bootFinishedAt.value = Date.now()
   
   // Start the tour automatically
   startTour()

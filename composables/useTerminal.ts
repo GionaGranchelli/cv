@@ -73,6 +73,17 @@ export function useTerminal() {
       return true
     }
     const output = resolveCommand(trimmed)
+    
+    // Track command execution
+    if (typeof umTrackEvent === 'function') {
+      const isError = output.includes('Unknown command') || output.includes('Unknown experience slug') || output.includes('Unknown article slug') || output.includes('Unknown project slug')
+      if (isError) {
+        umTrackEvent('command-error', { input: trimmed, output: output.split('.')[0] })
+      } else {
+        umTrackEvent('command-run', { command: trimmed.split(' ')[0], full: trimmed })
+      }
+    }
+
     history.value.push({ id: nextId++, command: trimmed, output })
     commandLog.value.push(trimmed)
     historyIndex.value = commandLog.value.length
@@ -91,6 +102,9 @@ export function useTerminal() {
     if (!commandLog.value.length) return
     historyIndex.value = Math.max(0, historyIndex.value - 1)
     command.value = commandLog.value[historyIndex.value] ?? ''
+    if (typeof umTrackEvent === 'function') {
+      umTrackEvent('command-history-navigated', { direction: 'up' })
+    }
   }
 
   function next() {
@@ -98,6 +112,9 @@ export function useTerminal() {
     if (!commandLog.value.length) return
     historyIndex.value = Math.min(commandLog.value.length, historyIndex.value + 1)
     command.value = commandLog.value[historyIndex.value] ?? ''
+    if (typeof umTrackEvent === 'function') {
+      umTrackEvent('command-history-navigated', { direction: 'down' })
+    }
   }
 
   function autocomplete() {
@@ -106,6 +123,11 @@ export function useTerminal() {
     autocompleteHint.value = ''
     if (!current) return
     const options = allAutocompleteOptions().filter(opt => opt.startsWith(current))
+    
+    if (typeof umTrackEvent === 'function') {
+      umTrackEvent('autocomplete-used', { input: current, matches: options.length })
+    }
+
     if (options.length === 1) {
       command.value = options[0]
       autocompleteHint.value = options[0]

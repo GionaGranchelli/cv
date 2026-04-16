@@ -1,4 +1,5 @@
 export default defineNuxtConfig({
+  extends: ['nuxt-umami'],
   ssr: true,
   compatibilityDate: '2025-04-12',
   devtools: { enabled: false },
