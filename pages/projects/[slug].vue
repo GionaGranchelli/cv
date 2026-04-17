@@ -53,7 +53,8 @@ useHead({
         'description': project.description,
         'applicationCategory': 'DeveloperApplication',
         'operatingSystem': 'Any',
-        'url': project.url
+        'url': project.url ?? project.repo,
+        'codeRepository': project.repo
       })
     }
   ]
@@ -70,8 +71,9 @@ useHead({
       <header>
         <h1 class="name">{{ project.name }}</h1>
         <p class="description">{{ project.description }}</p>
-        <div v-if="project.url" class="links">
-          <a :href="project.url" target="_blank" class="link-btn">Visit Project Site</a>
+        <div v-if="project.url || project.repo" class="links">
+          <a v-if="project.url" :href="project.url" target="_blank" class="link-btn">Visit Project Site</a>
+          <a v-if="project.repo" :href="project.repo" target="_blank" class="link-btn secondary">View GitHub Repo</a>
         </div>
       </header>
 
@@ -117,6 +119,17 @@ header { margin-bottom: 32px; border-bottom: 1px solid rgba(125, 211, 252, 0.1);
   margin-top: 16px;
 }
 .link-btn:hover { background: #7dd3fc; }
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.secondary {
+  background: transparent;
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+.secondary:hover { background: rgba(56, 189, 248, 0.12); }
 
 h3 { color: #f8fafc; margin-top: 32px; margin-bottom: 16px; border-left: 3px solid #38bdf8; padding-left: 12px; }
 

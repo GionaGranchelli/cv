@@ -3,6 +3,14 @@ import { articles } from '~/data/articles'
 
 export const projects: Project[] = [
   {
+    slug: 'intelliaibridge',
+    name: 'IntelliAiBridge',
+    description: 'Secure local proxy plugin for agentic coding through an authenticated IntelliJ Copilot session.',
+    repo: 'https://github.com/GionaGranchelli/IntelliAiBridge',
+    stack: ['Kotlin', 'IntelliJ Platform', 'GitHub Copilot', 'OpenAI Protocol', 'Agentic Workflows'],
+    content: 'IntelliAiBridge bridges the gap between external agentic tooling and company-approved IntelliJ Copilot usage. External agents talk to the plugin through the standard OpenAI protocol, and the plugin securely routes those requests through the authenticated Copilot session already running inside the IDE.'
+  },
+  {
     slug: 'openclaw-qmd',
     name: 'OpenClaw & QMD',
     description: 'Research into agentic workflows and personal AI infrastructure. Built as a KMP/Ktor backend for autonomous execution and local knowledge retrieval.',
@@ -303,6 +311,7 @@ export const commandList = [
   'articles modernizing-banking-legacy-to-cloud',
   'study',
   'projects',
+  'projects intelliaibridge',
   'projects openclaw-qmd',
   'projects vu-voetbal',
   'projects yous',
@@ -360,7 +369,7 @@ export const sections: Record<string, string> = {
   contact: wrapSection(
     'Contact',
     'Recruiter-friendly contact block',
-    `giona.granchelli@gmail.com<br>LinkedIn: giona-granchelli<br>GitHub: GionaGranchelli`,
+    `giona.granchelli@gmail.com<br>LinkedIn: <a href="https://www.linkedin.com/in/giona-granchelli" target="_blank">giona-granchelli</a><br>GitHub: <a href="https://github.com/GionaGranchelli" target="_blank">github.com/GionaGranchelli</a>`,
     '#86efac'
   ),
   clear: '',
@@ -377,9 +386,11 @@ Actively developing <b>agentic coding workflows</b> and personal AI infrastructu
 <b>Core Skills</b><br>
 Finance & core modernization, backend engineering, cloud & platform, <b>Agentic AI Orchestration</b>, architecture & leadership<br><br>
 <b>Projects & Contributions</b><br>
+<b>IntelliAiBridge</b>: Secure local proxy plugin that lets external agents work through an authenticated IntelliJ Copilot session using the standard OpenAI protocol (<a href="https://github.com/GionaGranchelli/IntelliAiBridge" target="_blank">GitHub</a>).<br>
 <b>VU-Voetbal</b>: Match planning & team balancing platform for football groups (<a href="https://vuvoetbal.gionag.com" target="_blank">vuvoetbal.gionag.com</a>).<br>
 <b>Yous</b>: Bilingual storytelling platform for personal growth and transformation (<a href="https://youscommunity.com" target="_blank">youscommunity.com</a>).<br>
-<b>WhichDistro.com</b>: Creator of the popular Linux distribution selection tool (<a href="https://whichdistro.com" target="_blank">whichdistro.com</a>).
+<b>WhichDistro.com</b>: Creator of the popular Linux distribution selection tool (<a href="https://whichdistro.com" target="_blank">whichdistro.com</a>).<br>
+<b>GitHub</b>: More projects and experiments at <a href="https://github.com/GionaGranchelli" target="_blank">github.com/GionaGranchelli</a>.
 `
 
 export function renderArticles() {
@@ -416,14 +427,16 @@ export function renderProjects() {
 }
 
 export function projectOutput(project: Project) {
-  const links = project.url ? `<a href="${project.url}" target="_blank">🔗 Official Site</a>` : ''
+  const officialLink = project.url ? `<a href="${project.url}" target="_blank">🔗 Official Site</a>` : ''
+  const repoLink = project.repo ? `<a href="${project.repo}" target="_blank">🔗 GitHub Repository</a>` : ''
   return `
 <div class="section-block">
   <div class="section-title" style="color:#38bdf8">${project.name}</div>
   <div class="section-body">${project.description}</div>
   <div class="section-stack"><b>Stack:</b> ${project.stack.join(', ')}</div>
   <div style="margin-top:12px; font-size:0.85rem; display:flex; gap:16px;">
-    ${links}
+    ${officialLink}
+    ${repoLink}
     <a href="/projects/${project.slug}" target="_blank">🔗 Deep Link / SEO Page</a>
   </div>
 </div>
