@@ -4,10 +4,17 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-04-12',
   devtools: { enabled: false },
   css: ['~/assets/main.css'],
-  modules: ['@nuxt/image', '@nuxtjs/sitemap', '@nuxtjs/robots'],
+  modules: ['@nuxt/image', '@nuxtjs/sitemap', '@nuxtjs/robots', 'nuxt-security'],
   site: {
     url: 'https://gionag.com',
     name: 'Giona Granchelli | Senior Software Engineer'
+  },
+  security: {
+    headers: {
+      crossOriginEmbedderPolicy: 'unsafe-none',
+      contentSecurityPolicy: false, // Disabled for now to prevent breaking existing components, can be refined later
+    },
+    hidePoweredBy: true
   },
   image: {
     domains: ['gionag.com', 'localhost']
@@ -40,6 +47,7 @@ export default defineNuxtConfig({
     '/projects/**': { prerender: true }
   },
   nitro: {
+    compressPublicAssets: true,
     prerender: {
       crawlLinks: true,
       routes: ['/sitemap.xml', '/robots.txt']
@@ -53,28 +61,27 @@ export default defineNuxtConfig({
       priority: 0.7
     },
     urls: [
-        { url: '/', priority: 1.0, changefreq: 'weekly' },
-        { url: '/experience', priority: 0.8, changefreq: 'monthly' },
-        { url: '/projects', priority: 0.8, changefreq: 'monthly' },
-        { url: '/articles', priority: 0.8, changefreq: 'weekly' },
-        { url: '/Curriculum_Giona_Latex.pdf', priority: 0.8 },
-        { url: '/experience/abn-amro-bcdb', priority: 0.9 },
-        { url: '/experience/abn-amro-payday', priority: 0.8 },
-        { url: '/experience/ximedes-ns', priority: 0.7 },
-        { url: '/experience/blox-btc-direct', priority: 0.7 },
-        { url: '/experience/woodwing-elvis', priority: 0.7 },
-        { url: '/experience/trifork-ibe-blox', priority: 0.7 },
-        { url: '/experience/research-scholarship', priority: 0.6 },
-        { url: '/articles/agentic-workflows-modern-engineering', priority: 0.9 },
-        { url: '/articles/modernizing-banking-legacy-to-cloud', priority: 0.9 },
-        { url: '/projects/openclaw-qmd', priority: 0.8 },
-        { url: '/projects/vu-voetbal', priority: 0.7 },
-        { url: '/projects/yous', priority: 0.7 },
-        { url: '/projects/whichdistro', priority: 0.7 }
+        { loc: '/', priority: 1.0, changefreq: 'weekly' },
+        { loc: '/experience', priority: 0.8, changefreq: 'monthly' },
+        { loc: '/projects', priority: 0.8, changefreq: 'monthly' },
+        { loc: '/articles', priority: 0.8, changefreq: 'weekly' },
+        { loc: '/Curriculum_Giona_Latex.pdf', priority: 0.8 },
+        { loc: '/experience/abn-amro-bcdb', priority: 0.9 },
+        { loc: '/experience/abn-amro-payday', priority: 0.8 },
+        { loc: '/experience/ximedes-ns', priority: 0.7 },
+        { loc: '/experience/blox-btc-direct', priority: 0.7 },
+        { loc: '/experience/woodwing-elvis', priority: 0.7 },
+        { loc: '/experience/trifork-ibe-blox', priority: 0.7 },
+        { loc: '/experience/research-scholarship', priority: 0.6 },
+        { loc: '/articles/agentic-workflows-modern-engineering', priority: 0.9 },
+        { loc: '/articles/modernizing-banking-legacy-to-cloud', priority: 0.9 },
+        { loc: '/projects/openclaw-qmd', priority: 0.8 },
+        { loc: '/projects/vu-voetbal', priority: 0.7 },
+        { loc: '/projects/yous', priority: 0.7 },
+        { loc: '/projects/whichdistro', priority: 0.7 }
     ]
   },
   robots: {
-    enabled: true,
-    configPath: '~/robots.config'
+    enabled: true
   }
 })

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { profile, experiences, education, publications, sections, projects } from '~/data/cv'
+import { profile, experiences, education, publications, sections, projects, photoUrl } from '~/data/cv'
 import { articles } from '~/data/articles'
 
 // This component is for SEO purposes, ensuring that all content is present in the initial HTML

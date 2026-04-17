@@ -1,5 +1,7 @@
-import { commandList, experienceListOutput, experienceOutput, experienceSummaryOutput, experiences, resolveOutput, sections } from '~/data/cv'
-import type { Experience, TerminalCommand } from '~/types/cv'
+import { commandList, experienceListOutput, experienceOutput, experienceSummaryOutput, experiences, projects, resolveOutput, sections } from '~/data/cv'
+import { articles } from '~/data/articles'
+import type { Experience, Project, TerminalCommand } from '~/types/cv'
+import type { Article } from '~/data/articles'
 
 export function useTerminal() {
   const history = ref<TerminalCommand[]>([])
@@ -29,8 +31,8 @@ export function useTerminal() {
     return [
       ...commandList, 
       ...experiences.map(e => `experience ${e.slug}`),
-      ...articles.map(a => `articles ${a.slug}`),
-      ...projects.map(p => `projects ${p.slug}`)
+      ...articles.map((a: Article) => `articles ${a.slug}`),
+      ...projects.map((p: Project) => `projects ${p.slug}`)
     ]
   }
 
