@@ -32,10 +32,10 @@
       <p v-if="showIdentity" class="hint">Type <b>help</b> to see available commands.</p>
       <p v-if="showIdentity" class="download">
         <a href="/Curriculum_Giona_Latex.pdf" download v-umami="'download-cv'">download cv</a>
-        <template v-for="site in ownedSites" :key="site.url">
+        <span v-for="site in ownedSites" :key="site.url" class="site-link">
           <span class="sep">·</span>
           <a :href="site.url" target="_blank" rel="noreferrer" v-umami="site.event">{{ site.label }}</a>
-        </template>
+        </span>
       </p>
 
       <div v-if="showIdentity" class="quick-actions">
@@ -264,6 +264,8 @@ input:checked ~ .slider { animation: pulse-slider 2s infinite; }
 .identity { color: #f8fafc; font-size: 1.1rem; }
 .tagline { color: #94a3b8; }
 .hint { color: #94a3b8; }
+.download { display: flex; flex-wrap: wrap; align-items: baseline; row-gap: 6px; }
+.site-link { display: inline-flex; align-items: baseline; }
 .download a, .screen :deep(a) { color: #38bdf8; text-decoration: none; }
 .download a:hover, .screen :deep(a):hover { text-decoration: underline; }
 .sep { color: #64748b; margin: 0 6px; }
