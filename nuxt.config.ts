@@ -85,6 +85,13 @@ export default defineNuxtConfig({
     ]
   },
   robots: {
-    enabled: true
+    enabled: true,
+    groups: [
+      {
+        comment: ['Allow OpenAI search and model crawlers'],
+        userAgent: ['OAI-SearchBot', 'GPTBot'],
+        allow: ['/']
+      }
+    ]
   }
 })

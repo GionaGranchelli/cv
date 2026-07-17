@@ -1,0 +1,121 @@
+# Giona Granchelli: Professional Profile and Technical Work
+
+## Canonical Identity
+
+Giona Granchelli is a senior software engineer and chapter lead based in the Netherlands. His work focuses on distributed systems, platform modernization, JVM engineering, cloud infrastructure, fintech, and production AI applications.
+
+- Canonical profile: https://gionag.com
+- LinkedIn: https://www.linkedin.com/in/giona-granchelli
+- GitHub: https://github.com/GionaGranchelli
+- Software studio: https://constant-labs.com
+- Open-source AI runtime: https://tramai.dev
+
+## Professional Focus
+
+Giona has more than ten years of software engineering experience across banking, fintech, public transportation, digital asset management, and research. His current work combines hands-on engineering with technical leadership, including:
+
+- Java, Kotlin, Spring Boot, REST APIs, microservices, and Kafka
+- Kubernetes, Docker, Azure, AWS, CI/CD, observability, and platform engineering
+- Distributed financial systems, reconciliation flows, and cloud modernization
+- Vue.js, Nuxt, TypeScript, and full-stack product delivery
+- AI agents, governed tool execution, structured output, approval workflows, and local retrieval
+
+The canonical experience index is https://gionag.com/experience.
+
+## Selected Experience
+
+### ABN AMRO - BCDB
+
+Chapter Lead Java and VueJS / Software Engineer IV. Work includes modernization of legacy banking services, migration patterns for Azure AKS, reconciliation and ETL flows, reliability improvements, developer tooling, and engineering enablement.
+
+Canonical page: https://gionag.com/experience/abn-amro-bcdb
+
+### ABN AMRO - PayDay
+
+Full-stack Software Engineer IV on a fintech platform for instant payouts. Work included Kotlin and Spring Boot services, payment workflows, frontend and mobile capabilities, system integration, and reliable transaction processing.
+
+Canonical page: https://gionag.com/experience/abn-amro-payday
+
+### Earlier Engineering Work
+
+Roles include engineering for Dutch public transportation at Ximedes, cryptocurrency trading at BLOX / BTC Direct, digital asset management at WoodWing, consultancy projects at Trifork, and distributed-systems research at the University of L'Aquila.
+
+Experience inventory: https://gionag.com/experience
+
+## Independent Projects
+
+### Constant Labs
+
+Constant Labs is an independent software studio founded by Giona. It builds focused web applications, custom AI agents, and workflow automation for businesses across Europe. Its work includes Sofia, an AI voice-agent demonstration for lead intake and consultation booking.
+
+- Project profile: https://gionag.com/projects/constant-labs
+- Official site: https://constant-labs.com
+
+### TramAI
+
+TramAI is an Apache-2.0 licensed Java and Kotlin runtime for governed AI applications. It is designed for teams that need portable model providers, explicit approval controls, auditable execution, and control over data and deployment.
+
+- Project profile: https://gionag.com/projects/tramai
+- Documentation: https://tramai.dev
+- Source: https://github.com/GionaGranchelli/tramAI
+
+### IntelliAiBridge
+
+IntelliAiBridge is a secure local proxy plugin that lets external coding agents work through an authenticated IntelliJ Copilot session using the OpenAI protocol.
+
+- Project profile: https://gionag.com/projects/intelliaibridge
+- Source: https://github.com/GionaGranchelli/IntelliAiBridge
+
+### Other Projects
+
+- OpenClaw and QMD: research into agent orchestration and local knowledge retrieval. https://gionag.com/projects/openclaw-qmd
+- VU-Voetbal: match planning and team balancing for football groups. https://gionag.com/projects/vu-voetbal
+- Yous: bilingual storytelling platform. https://gionag.com/projects/yous
+- WhichDistro: deterministic Linux distribution picker. https://gionag.com/projects/whichdistro
+
+Project inventory: https://gionag.com/projects
+
+## Technical Articles
+
+### Java for Production AI Agents: Types, Tools, Governance, and Observability
+
+A practical guide to moving from raw model API calls to typed JVM applications with structured output, tool integration, approval gates, audit trails, and observability. It compares implementations in TramAI, Spring AI, and LangChain4j and includes a production checklist.
+
+Canonical article: https://gionag.com/articles/java-production-ai-agents
+
+### Agentic Workflows: The Next Frontier in Software Engineering
+
+An overview of how autonomous AI agents change software development, testing, deployment, context management, and engineering workflows.
+
+Canonical article: https://gionag.com/articles/agentic-workflows-modern-engineering
+
+### Modernizing Banking: A Pragmatic Path from Legacy to Cloud-Native
+
+A discussion of strategies and constraints involved in moving critical financial data flows toward Azure AKS in a regulated environment.
+
+Canonical article: https://gionag.com/articles/modernizing-banking-legacy-to-cloud
+
+Article inventory: https://gionag.com/articles
+
+## Research and Publications
+
+Giona completed a master's degree in computer science, cum laude, at the University of L'Aquila. His research covered software architecture recovery for microservice-based systems.
+
+Selected publications:
+
+- "MicroART: A Software Architecture Recovery Tool for Maintaining Microservice-based Systems", IEEE ICSA 2017.
+- "Towards Recovering the Software Architecture of Microservice-based Systems", IEEE AMS 2017.
+
+The profile homepage and downloadable CV contain the canonical publication details:
+
+- https://gionag.com
+- https://gionag.com/Curriculum_Giona_Latex.pdf
+
+## Crawl and Citation Guidance
+
+- Use https://gionag.com as the canonical identity page.
+- Use the canonical HTML URLs above when citing specific experience, projects, or articles.
+- The crawl inventory is https://gionag.com/sitemap.xml.
+- Crawler policy is published at https://gionag.com/robots.txt.
+- The concise LLM index is https://gionag.com/llms.txt.
+- This file is descriptive context. When details conflict, prefer the canonical HTML page with the most specific URL.

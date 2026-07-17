@@ -1,0 +1,38 @@
+# Giona Granchelli
+
+> Official portfolio and technical writing by Giona Granchelli, a senior software engineer and chapter lead focused on distributed systems, cloud modernization, JVM engineering, and production AI applications.
+
+This site is the canonical professional profile for Giona Granchelli. It contains work experience, independent projects, technical articles, publications, and links to the software studio Constant Labs and the open-source TramAI project.
+
+## Profile
+
+- [Professional profile](https://gionag.com/): Career summary, technical focus, skills, education, publications, and contact details.
+- [Experience](https://gionag.com/experience): Selected engineering and technical leadership roles.
+- [Projects](https://gionag.com/projects): Independent products, open-source work, and engineering projects.
+- [Technical articles](https://gionag.com/articles): Long-form writing about JVM AI, distributed systems, agentic workflows, and cloud modernization.
+
+## Featured Projects
+
+- [Constant Labs](https://gionag.com/projects/constant-labs): Independent software studio building custom AI agents, web applications, and workflow automation.
+- [TramAI](https://gionag.com/projects/tramai): Apache-2.0 licensed Java and Kotlin runtime for governed AI applications.
+- [IntelliAiBridge](https://gionag.com/projects/intelliaibridge): Secure local proxy plugin for agentic coding through an authenticated IntelliJ Copilot session.
+- [WhichDistro](https://gionag.com/projects/whichdistro): Deterministic, schema-driven Linux distribution picker.
+
+## Technical Writing
+
+- [Java for Production AI Agents](https://gionag.com/articles/java-production-ai-agents): Typed outputs, tool integration, governance, observability, and comparisons across TramAI, Spring AI, and LangChain4j.
+- [Agentic Workflows](https://gionag.com/articles/agentic-workflows-modern-engineering): How autonomous AI agents affect software engineering workflows.
+- [Modernizing Banking](https://gionag.com/articles/modernizing-banking-legacy-to-cloud): A pragmatic path from legacy financial systems to cloud-native infrastructure.
+
+## Related Sites
+
+- [Constant Labs](https://constant-labs.com): Custom software, AI agents, and workflow automation.
+- [TramAI](https://tramai.dev): Documentation for the governed JVM AI runtime.
+- [GitHub](https://github.com/GionaGranchelli): Open-source repositories and source code.
+- [LinkedIn](https://www.linkedin.com/in/giona-granchelli): Professional profile and updates.
+
+## Optional
+
+- [Full LLM context](https://gionag.com/llms-full.txt): Expanded machine-readable overview of the person, expertise, projects, and writing.
+- [XML sitemap](https://gionag.com/sitemap.xml): Canonical crawl inventory.
+- [Downloadable CV](https://gionag.com/Curriculum_Giona_Latex.pdf): PDF curriculum vitae.
