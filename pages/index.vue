@@ -36,7 +36,9 @@ useHead({
         url: 'https://gionag.com',
         sameAs: [
           'https://www.linkedin.com/in/giona-granchelli',
-          'https://github.com/GionaGranchelli'
+          'https://github.com/GionaGranchelli',
+          'https://constant-labs.com',
+          'https://tramai.dev'
         ],
         knowsAbout: [
           'Kotlin',

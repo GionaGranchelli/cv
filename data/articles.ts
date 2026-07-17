@@ -7,9 +7,527 @@ export type Article = {
   tags: string[]
   content: string
   ogImage?: string
+  ogImageAlt?: string
 }
 
 export const articles: Article[] = [
+  {
+    slug: 'java-production-ai-agents',
+    title: 'Java for Production AI Agents: Types, Tools, Governance, and Observability',
+    description: 'From raw API calls to typed agents with approval gates, tool integration, and audit trails — what it takes to build AI agents on the JVM that are ready for real systems.',
+    date: '2026-07-16',
+    readingTime: '18 min read',
+    tags: ['Java', 'AI Agents', 'Spring AI', 'LangChain4j', 'TramAI', 'Production'],
+    ogImage: '/articles/java-production-ai-agents.webp',
+    ogImageAlt: 'Layered production AI agent architecture with governed tools, typed data paths, and observability signals',
+    content: `
+      <p>
+        <em>This is the article I wish I had read before building my first production AI agent on the JVM. It covers what works, what breaks, and where the real engineering effort goes once you move beyond a proof of concept.</em>
+      </p>
+
+      <aside class="article-checklist" aria-labelledby="production-checklist-title">
+        <h2 id="production-checklist-title">Production AI agent checklist</h2>
+        <ul>
+          <li>Typed, validated model outputs</li>
+          <li>Explicit tool allowlists</li>
+          <li>Approval for irreversible actions</li>
+          <li>A tested provider migration path</li>
+          <li>Evaluation and replay tests</li>
+          <li>End-to-end traces and audit events</li>
+        </ul>
+      </aside>
+
+      <h2>1. Where Python Remains the Right Choice</h2>
+      <p>
+        If you are training a model, fine-tuning a LoRA adapter, or running a research experiment, you should use Python. That ecosystem holds PyTorch, Hugging Face Transformers, vLLM, Unsloth, and the most widely adopted training and inference frameworks. Nobody is arguing otherwise.
+      </p>
+      <p>
+        But most production AI work is not training. It is integration. It is connecting a model to your database, your API, your approval workflow, your compliance log, and your monitoring stack. Once the model is an HTTP endpoint, the language boundary opens up.
+      </p>
+      <p>
+        That is where Java and the broader JVM ecosystem become not just viable but advantageous — particularly in enterprises where existing systems, team expertise, and operational tooling already run on the JVM.
+      </p>
+
+      <h2>2. Why Java Fits Enterprise AI Integration</h2>
+      <p>
+        Enterprise applications do not call a model in isolation. They authenticate, authorise, validate input, enrich context, call multiple downstream systems, apply business rules, log decisions, and handle failures. These are not AI problems. They are software engineering problems that Java has been solving for twenty-five years.
+      </p>
+      <p>
+        The JVM brings: strong typing for predictable data contracts, mature threading and concurrency primitives, battle-tested transaction management, declarative security, comprehensive observability through <a href="https://docs.micrometer.io/micrometer/reference/observation.html" target="_blank" rel="noopener noreferrer">Micrometer Observation</a> and <a href="https://opentelemetry.io/docs/languages/java/" target="_blank" rel="noopener noreferrer">OpenTelemetry Java</a>, and deployment portability across containers, Kubernetes, and bare metal.
+      </p>
+      <p>
+        When your AI agent needs to read from PostgreSQL, write to Kafka, send an email, await human approval, and log every step to an audit table — that is not a Python advantage. That is a Java sweet spot.
+      </p>
+
+      <h2>3. A Minimal Java Model Call</h2>
+      <p>
+        Let us start with the simplest possible interaction: calling an LLM from Java. The OpenAI-compatible API is JSON over HTTP, so the standard <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.net.http/java/net/http/HttpClient.html" target="_blank" rel="noopener noreferrer">Java 21 <code>HttpClient</code></a> is enough.
+      </p>
+      <pre><code>var client = HttpClient.newHttpClient();
+
+var request = HttpRequest.newBuilder()
+    .uri(URI.create("https://api.openai.com/v1/chat/completions"))
+    .header("Content-Type", "application/json")
+    .header("Authorization", "Bearer " + apiKey)
+    .POST(HttpRequest.BodyPublishers.ofString("""
+        {
+          "model": "gpt-4o",
+          "messages": [
+            {"role": "user", "content": "Explain virtual threads in Java 21"}
+          ]
+        }
+        """))
+    .build();
+
+var response = client.send(request, BodyHandlers.ofString());
+System.out.println(response.body());</code></pre>
+      <p>
+        This works. But it is also where most Java-AI tutorials stop, and where the real engineering should begin. A raw JSON string, no type safety, no error handling, no retry, no streaming, no structured output. Fine for a quick experiment. Dangerous for production.
+      </p>
+      <p>
+        TramAI starts from a different premise: the AI boundary should look like a typed application service, not a provider response that every caller has to parse. Spring AI and LangChain4j can also return typed objects, but their APIs and enforcement options make different trade-offs. We will compare the same operation below.
+      </p>
+
+      <h2>4. Why the API Call Is the Easy Part</h2>
+      <p>
+        A production agent does not just call a model. It must:
+      </p>
+      <ul>
+        <li>Manage conversation state across multiple turns</li>
+        <li>Handle token limits and context window pressures</li>
+        <li>Retry on transient failures with exponential backoff</li>
+        <li>Stream responses for user-facing latency</li>
+        <li>Parse and validate model output before acting on it</li>
+        <li>Enforce timeouts and circuit-break degraded endpoints</li>
+        <li>Log every interaction for debugging and compliance</li>
+      </ul>
+      <p>
+        Each of these is well-supported by the Java ecosystem. The challenge is that most AI tutorials skip them entirely, leaving teams to rediscover every pitfall in production.
+      </p>
+
+      <h2>5. Typed Structured Output</h2>
+      <p>
+        The most important shift from prototype to production is moving from raw strings to typed, validated structures. A model returning unstructured text is a liability. A model returning a validated Java record is an integration point. Here is the same lead-qualification operation in TramAI, Spring AI, and LangChain4j.
+      </p>
+      <pre><code>public record LeadQualification(
+    String companyName,
+    String contactEmail,
+    @JsonProperty("company_size") String companySize,
+    String interestArea,
+    boolean isQualified
+) {}</code></pre>
+      <div class="code-tabs" data-code-tabs>
+        <div class="code-tab-list" role="tablist" aria-label="Structured output implementation">
+          <button type="button" role="tab" id="structured-tab-tramai" aria-controls="structured-panel-tramai" aria-selected="true" tabindex="0" data-code-tab="tramai">TramAI</button>
+          <button type="button" role="tab" id="structured-tab-spring" aria-controls="structured-panel-spring" aria-selected="false" tabindex="-1" data-code-tab="spring">Spring AI</button>
+          <button type="button" role="tab" id="structured-tab-langchain" aria-controls="structured-panel-langchain" aria-selected="false" tabindex="-1" data-code-tab="langchain">LangChain4j</button>
+        </div>
+        <div role="tabpanel" id="structured-panel-tramai" aria-labelledby="structured-tab-tramai" data-code-panel="tramai">
+          <pre><code>@AiService
+public interface LeadQualifier {
+    @Operation(
+        prompt = "Qualify this lead and return a structured result",
+        model = "gpt-4o"
+    )
+    LeadQualification qualify(String description);
+}
+
+Tramai tramai = Tramai.builder()
+    .provider(
+        new OpenAiProvider(System.getenv("OPENAI_API_KEY")),
+        "openai",
+        true
+    )
+    .model("gpt-4o", "openai")
+    .build();
+
+LeadQualifier qualifier = tramai.create(LeadQualifier.class);
+LeadQualification lead = qualifier.qualify(
+    "A Berlin startup with 12 employees needs a custom CRM"
+);</code></pre>
+        </div>
+        <div role="tabpanel" id="structured-panel-spring" aria-labelledby="structured-tab-spring" data-code-panel="spring" hidden>
+          <pre><code>LeadQualification lead = chatClient.prompt()
+    .user("A Berlin startup with 12 employees needs a custom CRM")
+    .call()
+    .entity(LeadQualification.class, spec -&gt; spec
+        .useProviderStructuredOutput()
+        .validateSchema());</code></pre>
+        </div>
+        <div role="tabpanel" id="structured-panel-langchain" aria-labelledby="structured-tab-langchain" data-code-panel="langchain" hidden>
+          <pre><code>interface LeadQualifier {
+    @UserMessage(
+        "Qualify this lead and return a structured result: {{it}}"
+    )
+    LeadQualification qualify(String description);
+}
+
+LeadQualifier qualifier = AiServices.create(
+    LeadQualifier.class,
+    model
+);
+
+LeadQualification lead = qualifier.qualify(
+    "A Berlin startup with 12 employees needs a custom CRM"
+);</code></pre>
+        </div>
+      </div>
+      <p>
+        TramAI makes the Java interface the primary contract: the non-<code>String</code> return type drives schema generation, parsing, validation, and corrective retry in the runtime. Spring AI exposes provider-native enforcement and validation as explicit entity options. LangChain4j maps an AI Service return type into a Java object, with strict schema behavior depending on the configured model and its supported capabilities. In all three cases, the declared type gives downstream code compile-time safety while model conformance is still enforced at runtime. Compare the official documentation for <a href="https://tramai.dev/guides/core/structured-output" target="_blank" rel="noopener noreferrer">TramAI structured output</a>, <a href="https://docs.spring.io/spring-ai/reference/api/chatclient.html#_structured_output" target="_blank" rel="noopener noreferrer">Spring AI structured output</a>, and <a href="https://docs.langchain4j.dev/tutorials/structured-outputs/" target="_blank" rel="noopener noreferrer">LangChain4j structured outputs</a>.
+      </p>
+
+      <h2>6. Tools and Business-System Integration</h2>
+      <p>
+        An agent that cannot act on its conclusions is a toy. A production agent needs tools — functions the model can invoke to read from databases, call APIs, send notifications, or mutate state.
+      </p>
+      <p>
+        The important question is not only how a tool is implemented, but how it becomes available to a model. These examples expose customer lookup and order history while keeping the registration boundary visible:
+      </p>
+      <div class="code-tabs" data-code-tabs>
+        <div class="code-tab-list" role="tablist" aria-label="Tool registration implementation">
+          <button type="button" role="tab" id="tools-tab-tramai" aria-controls="tools-panel-tramai" aria-selected="true" tabindex="0" data-code-tab="tramai-tools">TramAI</button>
+          <button type="button" role="tab" id="tools-tab-spring" aria-controls="tools-panel-spring" aria-selected="false" tabindex="-1" data-code-tab="spring-tools">Spring AI</button>
+          <button type="button" role="tab" id="tools-tab-langchain" aria-controls="tools-panel-langchain" aria-selected="false" tabindex="-1" data-code-tab="langchain-tools">LangChain4j</button>
+        </div>
+        <div role="tabpanel" id="tools-panel-tramai" aria-labelledby="tools-tab-tramai" data-code-panel="tramai-tools">
+          <pre><code>@Component
+public class CustomerTools {
+    @AiTool(
+        name = "find_customer",
+        description = "Look up a customer by email",
+        sideEffectLevel = SideEffectLevel.READ_ONLY
+    )
+    Customer findCustomer(CustomerLookup input) {
+        return customerRepository.findByEmail(input.email());
+    }
+
+    @AiTool(
+        name = "get_orders",
+        description = "Get recent customer orders",
+        sideEffectLevel = SideEffectLevel.READ_ONLY
+    )
+    List&lt;Order&gt; getOrders(OrderLookup input) {
+        return orderRepository.findByCustomerId(
+            input.customerId()
+        );
+    }
+}
+
+@AiService
+public interface CustomerAssistant {
+    @Operation(
+        prompt = "Answer using customer and order data",
+        model = "gpt-4o",
+        tools = {"find_customer", "get_orders"}
+    )
+    String answer(String request);
+}
+
+String response = assistant.answer(
+    "Show orders for john@example.com"
+);</code></pre>
+        </div>
+        <div role="tabpanel" id="tools-panel-spring" aria-labelledby="tools-tab-spring" data-code-panel="spring-tools" hidden>
+          <pre><code>@Component
+public class CustomerTools {
+    @Tool(description = "Look up a customer by email")
+    Customer findByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
+
+    @Tool(description = "Get recent customer orders")
+    List&lt;Order&gt; getOrders(
+        @ToolParam(description = "Customer ID") Long id
+    ) {
+        return orderRepository.findByCustomerId(id);
+    }
+}
+
+String response = chatClient.prompt()
+    .user("Show orders for john@example.com")
+    .tools(customerTools)
+    .call()
+    .content();</code></pre>
+        </div>
+        <div role="tabpanel" id="tools-panel-langchain" aria-labelledby="tools-tab-langchain" data-code-panel="langchain-tools" hidden>
+          <pre><code>class CustomerTools {
+    @Tool("Look up a customer by email")
+    Customer findByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
+
+    @Tool("Get recent customer orders")
+    List&lt;Order&gt; getOrders(Long customerId) {
+        return orderRepository.findByCustomerId(customerId);
+    }
+}
+
+CustomerAssistant assistant = AiServices
+    .builder(CustomerAssistant.class)
+    .chatModel(model)
+    .tools(new CustomerTools())
+    .build();</code></pre>
+        </div>
+      </div>
+      <p>
+        TramAI's Spring module discovers <code>@AiTool</code> methods and registers the <code>@AiService</code> proxy as an injectable bean, while each <code>@Operation(tools = {...})</code> remains an explicit allowlist; an operation with no listed tools exposes none. There is no separate <code>@Tools</code> annotation in the current API. Standalone applications instead register <code>TramaiTool</code> instances through the builder. Spring AI registers tool objects on the request or client. LangChain4j attaches tool objects while building the AI Service. In each case, the model requests a tool call, but ordinary Java code still executes the repository, validation, transaction, and audit logic. The corresponding references are <a href="https://tramai.dev/guides/core/tool-calling" target="_blank" rel="noopener noreferrer">TramAI tool calling</a>, <a href="https://docs.spring.io/spring-ai/reference/api/tools.html" target="_blank" rel="noopener noreferrer">Spring AI tool calling</a>, and <a href="https://docs.langchain4j.dev/tutorials/tools/" target="_blank" rel="noopener noreferrer">LangChain4j tools</a>.
+      </p>
+
+      <h2>7. Permissions and Approval Boundaries</h2>
+      <p>
+        The hardest production problem is not getting the model to call a tool. It is controlling which tools it may call, for which users, under which circumstances.
+      </p>
+      <ul>
+        <li>A customer-support agent can read orders but not cancel them unilaterally.</li>
+        <li>An internal ops agent can query the database but never execute <code>DELETE</code>.</li>
+        <li>A document agent can draft an email but must route it through human approval before sending.</li>
+      </ul>
+      <p>
+        This requires an explicit authorization layer at the agent level — not at the model level, where it is unreliable, but at the orchestration level, where it is enforceable. Tools should be grouped into scopes with approval requirements that cannot be bypassed by jailbreaking the model.
+      </p>
+      <p>
+        <a href="https://tramai.dev" target="_blank" rel="noopener noreferrer">TramAI</a>, a JVM-native runtime for governed AI agents, treats <a href="https://tramai.dev/security/approval-workflows" target="_blank" rel="noopener noreferrer">approval workflows</a> as a first-class concern. You configure which tools trigger an approval workflow through the policy engine, and the runtime suspends execution, stores the continuation, and only resumes after an authorized decision.
+      </p>
+      <pre><code>// Minimum approval infrastructure using TramAI's documented builder.
+val coordinator = DefaultApprovalGateCoordinator(
+    store = InMemoryApprovalStore(),
+    approvalIdGenerator = UuidApprovalIdGenerator,
+    approvalTokenGenerator = SecureRandomApprovalTokenGenerator,
+    approvalTokenDigester = Sha256ApprovalTokenDigester,
+    decisionValidator = AllowAnyApprovalDecisionValidator,
+    maxApprovalTtl = Duration.ofMinutes(15),
+)
+
+val tramai = Tramai {
+    provider(openAiProvider, name = "openai", default = true)
+    model("gpt-4o", "openai")
+    approvalGateCoordinator(coordinator)
+    approvalContinuationStore(InMemoryApprovalContinuationStore())
+    toolArgumentsDigester(Sha256ToolArgumentsDigester)
+}</code></pre>
+      <p>
+        This is not an add-on. It is architectural. When policy requires approval, the runtime suspends execution, stores a continuation, and waits for an authorized decision. The in-memory stores above are suitable for demonstrating the API; production deployments need a durable store if approvals must survive process restarts. If your agent's permission boundaries are enforced only by a system prompt, you do not have security. You have suggestions.
+      </p>
+
+      <h2>8. Provider Portability and Self-Hosted Models</h2>
+      <p>
+        Vendor lock-in is the silent tax of AI integration. Most tutorials hardcode a single provider, a single model, and a single endpoint. In production, you want the ability to switch providers, run benchmarks across models, swap in a cheaper model for simple classification tasks, and host your own models behind a compatible API.
+      </p>
+      <p>
+        All three options can keep business code independent of a provider, but they place routing policy at different levels. The following examples express the same cloud-versus-local requirement:
+      </p>
+      <div class="code-tabs" data-code-tabs>
+        <div class="code-tab-list" role="tablist" aria-label="Provider routing implementation">
+          <button type="button" role="tab" id="routing-tab-tramai" aria-controls="routing-panel-tramai" aria-selected="true" tabindex="0" data-code-tab="tramai-routing">TramAI</button>
+          <button type="button" role="tab" id="routing-tab-spring" aria-controls="routing-panel-spring" aria-selected="false" tabindex="-1" data-code-tab="spring-routing">Spring AI</button>
+          <button type="button" role="tab" id="routing-tab-langchain" aria-controls="routing-panel-langchain" aria-selected="false" tabindex="-1" data-code-tab="langchain-routing">LangChain4j</button>
+        </div>
+        <div role="tabpanel" id="routing-panel-tramai" aria-labelledby="routing-tab-tramai" data-code-panel="tramai-routing">
+          <pre><code># application.yml
+tramai:
+  default-provider: openai
+  models:
+    gpt-4o: openai
+  fallbacks:
+    gpt-4o:
+      - provider: ollama
+        model: llama3.1:8b
+  resilience:
+    circuit-breaker:
+      enabled: true
+      failure-threshold: 3
+  providers:
+    openai:
+      api-key: \${OPENAI_API_KEY}
+    ollama:
+      base-url: http://localhost:11434
+
+# CustomerAssistant's @Operation(model = "gpt-4o")
+# now follows this ordered route automatically.</code></pre>
+        </div>
+        <div role="tabpanel" id="routing-panel-spring" aria-labelledby="routing-tab-spring" data-code-panel="spring-routing" hidden>
+          <pre><code>ChatClient cloud = ChatClient.create(openAiModel);
+ChatClient local = ChatClient.create(ollamaModel);
+
+ChatClient selected = useLocalModel
+    ? local
+    : cloud;
+
+String response = selected.prompt()
+    .user("Qualify this lead")
+    .call()
+    .content();
+
+// Add Resilience4j or application-level failover
+// when automatic fallback is required.</code></pre>
+        </div>
+        <div role="tabpanel" id="routing-panel-langchain" aria-labelledby="routing-tab-langchain" data-code-panel="langchain-routing" hidden>
+          <pre><code>ChatModel model = useLocalModel
+    ? OllamaChatModel.builder()
+        .baseUrl("http://localhost:11434")
+        .modelName("llama3.1:8b")
+        .build()
+    : OpenAiChatModel.builder()
+        .apiKey(System.getenv("OPENAI_API_KEY"))
+        .modelName("gpt-4o")
+        .build();
+
+String response = model.chat("Qualify this lead");</code></pre>
+        </div>
+      </div>
+      <p>
+        TramAI stores the primary route, fallback model, provider, and circuit-breaker behavior in the runtime configuration. Spring AI and LangChain4j make changing the concrete model straightforward, but an automatic fallback policy still belongs in your application or resilience layer. See <a href="https://tramai.dev/guides/core/providers-routing" target="_blank" rel="noopener noreferrer">TramAI provider routing</a>, <a href="https://docs.spring.io/spring-ai/reference/api/chatclient.html#_working_with_multiple_chat_models" target="_blank" rel="noopener noreferrer">Spring AI multiple-model configuration</a>, and <a href="https://docs.langchain4j.dev/tutorials/chat-and-language-models/" target="_blank" rel="noopener noreferrer">LangChain4j chat models</a>.
+      </p>
+      <p>
+        This matters more than most teams realise. When a provider changes pricing, deprecates a model, introduces latency spikes, or goes down, your application should have a tested migration or fallback path. An abstraction reduces the affected code, but it does not remove differences in model behavior, capabilities, or configuration.
+      </p>
+
+      <h2>9. Testing, Auditability, and Observability</h2>
+      <p>
+        AI agents introduce non-determinism into systems that were previously deterministic. That does not mean testing is impossible. It means testing strategy must evolve.
+      </p>
+      <ul>
+        <li><strong>Unit tests</strong> for tool logic, routing, and approval gates — standard JUnit.</li>
+        <li><strong>Integration tests</strong> with mock model endpoints (WireMock or a local Ollama instance) that return fixture responses.</li>
+        <li><strong>Evaluation tests</strong> that run real model calls against golden datasets and assert output structure, not exact text.</li>
+        <li><strong>Regression tests</strong> that replay production traces through the agent and verify decisions match expected outcomes.</li>
+      </ul>
+      <p>
+        The telemetry hook is also different in each framework. These minimal configurations instrument the model or agent call without enabling prompt and completion capture:
+      </p>
+      <div class="code-tabs" data-code-tabs>
+        <div class="code-tab-list" role="tablist" aria-label="Observability implementation">
+          <button type="button" role="tab" id="observe-tab-tramai" aria-controls="observe-panel-tramai" aria-selected="true" tabindex="0" data-code-tab="tramai-observe">TramAI</button>
+          <button type="button" role="tab" id="observe-tab-spring" aria-controls="observe-panel-spring" aria-selected="false" tabindex="-1" data-code-tab="spring-observe">Spring AI</button>
+          <button type="button" role="tab" id="observe-tab-langchain" aria-controls="observe-panel-langchain" aria-selected="false" tabindex="-1" data-code-tab="langchain-observe">LangChain4j</button>
+        </div>
+        <div role="tabpanel" id="observe-panel-tramai" aria-labelledby="observe-tab-tramai" data-code-panel="tramai-observe">
+          <pre><code>var observer = new OpenTelemetryOperationObserver(
+    openTelemetry,
+    "customer-lead-agent"
+);
+
+Tramai tramai = Tramai.builder()
+    .provider(openAiProvider, "openai", true)
+    .model("gpt-4o", "openai")
+    .observer(observer)
+    .build();
+
+// Every provider attempt now emits spans and metrics,
+// including retries, parse failures, and token usage.</code></pre>
+        </div>
+        <div role="tabpanel" id="observe-panel-spring" aria-labelledby="observe-tab-spring" data-code-panel="spring-observe" hidden>
+          <pre><code>ChatClient client = ChatClient.create(
+    openAiModel,
+    observationRegistry
+);
+
+String response = client.prompt()
+    .user("Qualify this lead")
+    .call()
+    .content();
+
+// With Actuator and a tracing bridge, Spring AI
+// emits ChatClient and ChatModel observations.</code></pre>
+        </div>
+        <div role="tabpanel" id="observe-panel-langchain" aria-labelledby="observe-tab-langchain" data-code-panel="langchain-observe" hidden>
+          <pre><code>var listener =
+    new MicrometerMetricsChatModelListener(meterRegistry);
+
+ChatModel model = OpenAiChatModel.builder()
+    .apiKey(System.getenv("OPENAI_API_KEY"))
+    .modelName("gpt-4o")
+    .listeners(List.of(listener))
+    .build();
+
+String response = model.chat("Qualify this lead");</code></pre>
+        </div>
+      </div>
+      <p>
+        Observability is equally critical. Every model call, tool invocation, approval decision, and failure should produce structured logs with trace IDs that span the entire agent lifecycle. TramAI observes each engine attempt through its <code>OperationObserver</code>; Spring AI integrates with Micrometer Observation at the client and model layers; LangChain4j attaches listeners to supported model implementations. Keep prompt and completion payload logging disabled unless you have an explicit redaction and retention policy. See <a href="https://tramai.dev/guides/testing-observability/observability" target="_blank" rel="noopener noreferrer">TramAI observability</a>, <a href="https://docs.spring.io/spring-ai/reference/observability/" target="_blank" rel="noopener noreferrer">Spring AI observability</a>, and <a href="https://docs.langchain4j.dev/tutorials/observability/" target="_blank" rel="noopener noreferrer">LangChain4j observability</a>. An agent that cannot be debugged after the fact is an incident waiting to happen.
+      </p>
+
+      <h2>10. Run the Companion Example</h2>
+      <p>
+        The <a href="https://github.com/GionaGranchelli/cv/tree/main/examples/java-production-ai-agents" target="_blank" rel="noopener noreferrer">companion project on GitHub</a> turns the raw HTTP section into an executable Java 21 example. It starts a local OpenAI-compatible mock endpoint, performs the request, parses the nested structured result with Jackson, validates it as a Java record, and exits. No API key or network call is required.
+      </p>
+      <pre><code>cd examples/java-production-ai-agents
+./run.sh</code></pre>
+      <p>
+        To exercise the same client against a compatible provider, set <code>AI_API_KEY</code>, <code>AI_BASE_URL</code>, and optionally <code>AI_MODEL</code>, then run <code>./run.sh --live</code>. Keeping the transport example small makes the boundary visible; the framework tabs above show where TramAI, Spring AI, or LangChain4j take over structured mapping and orchestration.
+      </p>
+
+      <h2>11. Choosing Between Spring AI, LangChain4j, and TramAI</h2>
+      <p>
+        The Java AI ecosystem has several options, each with a different scope:
+      </p>
+      <ul>
+        <li><strong>Spring AI</strong> — Best if you are already on Spring Boot. Provides structured output, tool integration, document ingestion, and RAG through the familiar autoconfiguration and bean model. The fastest path from "Java project" to "AI-enabled service."</li>
+        <li><strong>LangChain4j</strong> — A framework-agnostic alternative with a broader set of built-in tool integrations, memory providers, and model support. Well-suited if you need flexibility outside the Spring ecosystem or want more connector options out of the box.</li>
+        <li><strong>TramAI</strong> — A JVM-native runtime that sits alongside the model layer and provides governance, approval workflows, audit trails, and deployment control. Not an agent framework — it is a bounded orchestration and policy layer for scenarios where you need to know who approved what, which model was used, and where the data went.</li>
+      </ul>
+      <p>
+        These are overlapping choices, not a pipeline. Spring AI and LangChain4j both provide model abstraction and tool integration, so pick one based on your framework and feature requirements. TramAI is an alternative runtime when bounded workflows, approval gates, audit trails, and sovereign deployment controls are central requirements. Do not assume these libraries wrap one another transparently: start with one, and introduce another service or integration boundary only when a concrete requirement justifies the additional framework.
+      </p>
+
+      <h2>12. A Small Working Architecture</h2>
+      <p>
+        Here is what a production-ready Java AI agent architecture looks like in practice:
+      </p>
+      <pre><code>┌────────────────────────────────────────────────────┐
+│                    User / API Gateway                │
+└─────────┬──────────────────────────────┬─────────────┘
+          │                              │
+          ▼                              ▼
+┌──────────────────┐   ┌─────────────────────────────┐
+│  TramAI Runtime   │   │  Approval Dashboard         │
+│                   │   │  (human-in-the-loop UI)     │
+│  · Auth & scopes  │   └─────────────────────────────┘
+│  · Policy engine  │
+│  · Approval gates │
+│  · Tool execution │
+│  · Audit logging  │
+└─────────┬─────────┘
+          │
+    ┌─────┴─────┐
+    ▼           ▼
+┌────────┐ ┌──────────┐
+│ Model  │ │  Tools   │
+│ Layer  │ │  Layer   │
+│ OpenAI │ │ Database │
+│ Ollama │ │ APIs     │
+│ vLLM   │ │ Email    │
+│ etc    │ │ Kafka    │
+└────────┘ │ Files    │
+           └──────────┘</code></pre>
+      <p>
+        The key insight: the runtime orchestrates both model calls and tool execution through a single policy engine. Approval gates are enforced in the tool-execution path — the runtime intercepts tool invocations, checks the policy, suspends if needed, and only resumes after the gate clears. The model never calls tools directly; it requests them through the runtime.
+      </p>
+
+      <h2>13. Where to Go From Here</h2>
+      <p>
+        If you are a Java developer exploring AI agents, start with the tools you already know. Add Spring AI or LangChain4j to your existing project. Expose one business operation as a tool. Call a model with typed output. See how far you get with just the ecosystem you already have.
+      </p>
+      <p>
+        When approval workflows, audit requirements, provider routing, or deployment control become central to the design, evaluate TramAI as the runtime for that bounded workflow. The <a href="https://tramai.dev" target="_blank" rel="noopener noreferrer">TramAI documentation</a> covers its approval gates, provider orchestration, and deterministic execution engine.
+      </p>
+      <p>
+        If your team needs a production AI agent built on the JVM — with proper governance, typed tools, and an architecture designed for regulated environments — <a href="https://constant-labs.com" target="_blank" rel="noopener noreferrer">Constant Labs</a> builds these systems for companies across the Netherlands, Italy, and the EU.
+      </p>
+      <p>
+        The first API call is easy. Everything after that is engineering.
+      </p>
+
+      <h2>Sources and Further Reading</h2>
+      <ul>
+        <li><a href="https://tramai.dev" target="_blank" rel="noopener noreferrer">TramAI documentation</a> — typed services, tool policies, approvals, and runtime architecture.</li>
+        <li><a href="https://docs.spring.io/spring-ai/reference/" target="_blank" rel="noopener noreferrer">Spring AI reference documentation</a> — ChatClient, structured output, models, and tools.</li>
+        <li><a href="https://docs.langchain4j.dev/" target="_blank" rel="noopener noreferrer">LangChain4j documentation</a> — AI Services, structured outputs, tools, and model integrations.</li>
+        <li><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.net.http/java/net/http/HttpClient.html" target="_blank" rel="noopener noreferrer">Java 21 HttpClient API</a> — the standard HTTP transport used by the companion example.</li>
+        <li><a href="https://opentelemetry.io/docs/languages/java/" target="_blank" rel="noopener noreferrer">OpenTelemetry Java</a> and <a href="https://docs.micrometer.io/micrometer/reference/observation.html" target="_blank" rel="noopener noreferrer">Micrometer Observation</a> — tracing and observation primitives for JVM services.</li>
+      </ul>
+    `
+  },
   {
     slug: 'agentic-workflows-modern-engineering',
     title: 'Agentic Workflows: The Next Frontier in Software Engineering',

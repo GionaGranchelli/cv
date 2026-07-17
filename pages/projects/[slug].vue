@@ -9,6 +9,35 @@ if (!project) {
   throw createError({ statusCode: 404, statusMessage: 'Project not found' })
 }
 
+const projectStructuredData = project.schemaType === 'Organization'
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: project.name,
+      description: project.description,
+      url: project.url,
+      founder: {
+        '@type': 'Person',
+        name: 'Giona Granchelli',
+        url: 'https://gionag.com'
+      }
+    }
+  : {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: project.name,
+      description: project.description,
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Any',
+      url: project.url ?? project.repo,
+      codeRepository: project.repo,
+      author: {
+        '@type': 'Person',
+        name: 'Giona Granchelli',
+        url: 'https://gionag.com'
+      }
+    }
+
 useSeoMeta({
   title: project.name,
   description: project.description,
@@ -46,16 +75,7 @@ useHead({
     },
     {
       type: 'application/ld+json',
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'SoftwareApplication',
-        'name': project.name,
-        'description': project.description,
-        'applicationCategory': 'DeveloperApplication',
-        'operatingSystem': 'Any',
-        'url': project.url ?? project.repo,
-        'codeRepository': project.repo
-      })
+      innerHTML: JSON.stringify(projectStructuredData)
     }
   ]
 })

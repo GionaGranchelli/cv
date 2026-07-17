@@ -30,6 +30,7 @@ export type Project = {
   slug: string
   name: string
   description: string
+  schemaType?: 'Organization' | 'SoftwareApplication'
   url?: string
   repo?: string
   stack: string[]

@@ -1,21 +1,72 @@
 {
   "name": "terminal-cv",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
   "type": "module",
+  "description": "Terminal-style interactive CV and portfolio. Write a YAML file, get a production-ready developer portfolio with SSR, SEO, boot sequence, and neofetch.",
+  "keywords": [
+    "terminal",
+    "portfolio",
+    "cv",
+    "resume",
+    "nuxt",
+    "vue",
+    "typescript",
+    "developer-portfolio",
+    "cli",
+    "neofetch",
+    "template"
+  ],
+  "homepage": "https://gionag.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GionaGranchelli/terminal-cv"
+  },
+  "license": "MIT",
+  "bin": {
+    "create-terminal-cv": "./bin/create-terminal-cv.js"
+  },
+  "files": [
+    "bin/",
+    "cli/",
+    "schema/",
+    "template/",
+    "components/",
+    "composables/",
+    "data/",
+    "pages/",
+    "types/",
+    "assets/",
+    "server/",
+    "public/",
+    "app.vue",
+    "app.config.ts",
+    "nuxt.config.ts",
+    "tsconfig.json",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "validate": "npx tsx cli/validate.ts",
+    "scaffold": "npx tsx cli/generate.ts"
   },
   "dependencies": {
     "@nuxt/image": "^2.0.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "js-yaml": "^4.1.0",
     "nuxt": "^3.13.2",
     "nuxt-umami": "^2.6.7"
   },
   "devDependencies": {
     "@nuxtjs/robots": "^6.0.7",
     "@nuxtjs/sitemap": "^8.0.12",
-    "nuxt-security": "^2.5.1"
+    "@types/js-yaml": "^4.0.9",
+    "nuxt-security": "^2.5.1",
+    "tsx": "^4.19.2"
   }
 }

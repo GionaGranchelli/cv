@@ -3,6 +3,25 @@ import { articles } from '~/data/articles'
 
 export const projects: Project[] = [
   {
+    slug: 'constant-labs',
+    name: 'Constant Labs',
+    description: 'Independent software studio building custom AI agents, web applications, and workflow automation for businesses across Europe.',
+    schemaType: 'Organization',
+    url: 'https://constant-labs.com',
+    stack: ['Kotlin', 'Spring Boot', 'Nuxt', 'AI Agents', 'Cloud'],
+    content: 'I founded Constant Labs to help businesses replace manual workflows and disconnected tools with focused software. Its work includes custom web applications, workflow automation, and Sofia, a voice-agent demonstration for lead intake and consultation booking.'
+  },
+  {
+    slug: 'tramai',
+    name: 'TramAI',
+    description: 'Apache-2.0 licensed Java and Kotlin runtime for governed AI applications with portable providers, approval controls, and auditable execution.',
+    schemaType: 'SoftwareApplication',
+    url: 'https://tramai.dev',
+    repo: 'https://github.com/GionaGranchelli/tramAI',
+    stack: ['Kotlin', 'Java', 'Spring Boot', 'Agentic AI', 'Kubernetes'],
+    content: 'TramAI is a JVM-native runtime for teams that need to integrate AI while retaining control over providers, data flows, approvals, and deployment. It is designed for production applications where portability, governance, and operational visibility are requirements rather than optional extras.'
+  },
+  {
     slug: 'intelliaibridge',
     name: 'IntelliAiBridge',
     description: 'Secure local proxy plugin for agentic coding through an authenticated IntelliJ Copilot session.',
@@ -36,10 +55,10 @@ export const projects: Project[] = [
   {
     slug: 'whichdistro',
     name: 'WhichDistro',
-    description: 'Popular Linux distribution selection tool.',
+    description: 'Deterministic, schema-driven Linux distribution picker built with Nuxt 3.',
     url: 'https://whichdistro.com',
-    stack: ['Vue', 'Nuxt', 'Linux'],
-    content: 'Helping users find the right Linux distribution since 2011.'
+    stack: ['Nuxt 3', 'TypeScript', 'Zod', 'Linux'],
+    content: 'A deterministic Linux distribution picker that turns user preferences into an explicit, schema-driven recommendation flow rather than a vague quiz.'
   }
 ]
 
@@ -311,6 +330,8 @@ export const commandList = [
   'articles modernizing-banking-legacy-to-cloud',
   'study',
   'projects',
+  'projects constant-labs',
+  'projects tramai',
   'projects intelliaibridge',
   'projects openclaw-qmd',
   'projects vu-voetbal',
@@ -342,7 +363,7 @@ export const sections: Record<string, string> = {
   about: wrapSection(
     'About',
     'Senior software engineer and chapter lead',
-    `Chapter Lead & senior software engineer with 10+ years of experience designing and modernising distributed systems. Currently pioneering <b>agentic coding workflows</b> and personal AI infrastructure to multiply engineering output.`,
+    `Chapter Lead & senior software engineer with 10+ years of experience designing and modernising distributed systems. Currently pioneering <b>agentic coding workflows</b> and personal AI infrastructure to multiply engineering output.<br>Portfolio: <a href="https://gionag.com" target="_blank">gionag.com</a>`,
     '#7dd3fc'
   ),
   skills: wrapSection(
@@ -369,7 +390,7 @@ export const sections: Record<string, string> = {
   contact: wrapSection(
     'Contact',
     'Recruiter-friendly contact block',
-    `giona.granchelli@gmail.com<br>LinkedIn: <a href="https://www.linkedin.com/in/giona-granchelli" target="_blank">giona-granchelli</a><br>GitHub: <a href="https://github.com/GionaGranchelli" target="_blank">github.com/GionaGranchelli</a>`,
+    `Website: <a href="https://gionag.com" target="_blank">gionag.com</a><br>giona.granchelli@gmail.com<br>LinkedIn: <a href="https://www.linkedin.com/in/giona-granchelli" target="_blank">giona-granchelli</a><br>GitHub: <a href="https://github.com/GionaGranchelli" target="_blank">github.com/GionaGranchelli</a><br>Projects: <a href="https://gionag.com/projects" target="_blank">gionag.com/projects</a>`,
     '#86efac'
   ),
   clear: '',
@@ -385,12 +406,14 @@ Leading technical modernization across a banking department responsible for lega
 Actively developing <b>agentic coding workflows</b> and personal AI infrastructure (OpenClaw, QMD). Focus on context engineering, tool-use orchestration, and building autonomous engineering assistants using Kotlin Multiplatform and local RAG systems.<br><br>
 <b>Core Skills</b><br>
 Finance & core modernization, backend engineering, cloud & platform, <b>Agentic AI Orchestration</b>, architecture & leadership<br><br>
+<b>Portfolio</b><br>
+<a href="https://gionag.com" target="_blank">gionag.com</a> - interactive terminal-style CV and project portfolio.<br><br>
 <b>Projects & Contributions</b><br>
 <b>IntelliAiBridge</b>: Secure local proxy plugin that lets external agents work through an authenticated IntelliJ Copilot session using the standard OpenAI protocol (<a href="https://github.com/GionaGranchelli/IntelliAiBridge" target="_blank">GitHub</a>).<br>
 <b>VU-Voetbal</b>: Match planning & team balancing platform for football groups (<a href="https://vuvoetbal.gionag.com" target="_blank">vuvoetbal.gionag.com</a>).<br>
 <b>Yous</b>: Bilingual storytelling platform for personal growth and transformation (<a href="https://youscommunity.com" target="_blank">youscommunity.com</a>).<br>
-<b>WhichDistro.com</b>: Creator of the popular Linux distribution selection tool (<a href="https://whichdistro.com" target="_blank">whichdistro.com</a>).<br>
-<b>GitHub</b>: More projects and experiments at <a href="https://github.com/GionaGranchelli" target="_blank">github.com/GionaGranchelli</a>.
+<b>WhichDistro.com</b>: Deterministic, schema-driven Linux distribution picker built with Nuxt 3 (<a href="https://whichdistro.com" target="_blank">whichdistro.com</a>).<br>
+<b>GitHub</b>: More projects and experiments, including additional AI tooling, at <a href="https://github.com/GionaGranchelli" target="_blank">github.com/GionaGranchelli</a>.
 `
 
 export function renderArticles() {

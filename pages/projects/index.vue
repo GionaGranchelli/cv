@@ -2,10 +2,10 @@
 import { projects } from '~/data/cv'
 
 useSeoMeta({
-  title: 'Open Source Projects',
-  description: 'A collection of open source projects and experiments by Giona Granchelli.',
-  ogTitle: 'Open Source Projects | Giona Granchelli',
-  ogDescription: 'A collection of open source projects and experiments by Giona Granchelli.',
+  title: 'Projects & Independent Work',
+  description: 'Software products, independent ventures, open-source projects, and engineering experiments by Giona Granchelli.',
+  ogTitle: 'Projects & Independent Work | Giona Granchelli',
+  ogDescription: 'Software products, independent ventures, open-source projects, and engineering experiments by Giona Granchelli.',
   ogType: 'website',
   ogUrl: 'https://gionag.com/projects',
   ogImage: 'https://gionag.com/photo.jpg'
@@ -46,8 +46,8 @@ useHead({
     </nav>
 
     <header class="header">
-      <h1 class="title">Projects & Open Source</h1>
-      <p class="subtitle">Experimental tools, platforms, and research in software engineering.</p>
+      <h1 class="title">Projects & Independent Work</h1>
+      <p class="subtitle">Software products, independent ventures, open-source projects, and engineering experiments.</p>
     </header>
 
     <section class="projects-list">
