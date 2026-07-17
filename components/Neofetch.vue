@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { profile, photoUrl } from '~/data/cv'
+import { ownedSites, profile, photoUrl } from '~/data/cv'
 </script>
 
 <template>
@@ -21,7 +21,15 @@ import { profile, photoUrl } from '~/data/cv'
         <div class="neo-row"><span class="neo-label">ai-focus</span><span class="neo-value">Agentic Workflows & Infrastructure</span></div>
         <div class="neo-row"><span class="neo-label">stack</span><span class="neo-value">Kotlin, Java, Vue, Azure, Kubernetes</span></div>
         <div class="neo-row"><span class="neo-label">focus</span><span class="neo-value">Banking, fintech, distributed systems</span></div>
-        <div class="neo-row"><span class="neo-label">site</span><span class="neo-value">WhichDistro.com</span></div>
+        <div class="neo-row">
+          <span class="neo-label">sites</span>
+          <span class="neo-value neo-sites">
+            <template v-for="(site, index) in ownedSites" :key="site.url">
+              <span v-if="index" aria-hidden="true"> · </span>
+              <a :href="site.url" target="_blank" rel="noreferrer" v-umami="site.event">{{ site.label }}</a>
+            </template>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -51,6 +59,8 @@ import { profile, photoUrl } from '~/data/cv'
 .neo-row { display: flex; gap: 10px; flex-wrap: wrap; }
 .neo-label { color: #38bdf8; min-width: 56px; text-transform: uppercase; font-size: .8rem; letter-spacing: .06em; }
 .neo-value { color: #e2e8f0; }
+.neo-sites a { color: #e2e8f0; text-decoration: underline; text-underline-offset: 3px; }
+.neo-sites a:hover { color: #7dd3fc; }
 
 @media (max-width: 640px) {
   .neo-card { grid-template-columns: 1fr; }

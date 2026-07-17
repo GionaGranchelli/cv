@@ -32,8 +32,10 @@
       <p v-if="showIdentity" class="hint">Type <b>help</b> to see available commands.</p>
       <p v-if="showIdentity" class="download">
         <a href="/Curriculum_Giona_Latex.pdf" download v-umami="'download-cv'">download cv</a>
-        <span class="sep">·</span>
-        <a href="https://whichdistro.com" target="_blank" rel="noreferrer" v-umami="'visit-whichdistro'">whichdistro.com</a>
+        <template v-for="site in ownedSites" :key="site.url">
+          <span class="sep">·</span>
+          <a :href="site.url" target="_blank" rel="noreferrer" v-umami="site.event">{{ site.label }}</a>
+        </template>
       </p>
 
       <div v-if="showIdentity" class="quick-actions">
@@ -63,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { bootLines, photoUrl, profile } from '~/data/cv'
+import { bootLines, ownedSites, photoUrl, profile } from '~/data/cv'
 import { useTerminal } from '~/composables/useTerminal'
 import { useTour } from '~/composables/useTour'
 

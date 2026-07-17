@@ -71,6 +71,12 @@ export const profile: Profile = {
 
 export const photoUrl = '/photo.jpg'
 
+export const ownedSites = [
+  { label: 'constant-labs.com', url: 'https://constant-labs.com', event: 'visit-constant-labs' },
+  { label: 'tramai.dev', url: 'https://tramai.dev', event: 'visit-tramai' },
+  { label: 'whichdistro.com', url: 'https://whichdistro.com', event: 'visit-whichdistro' }
+] as const
+
 export const bootLines = [
   '[ ok ] Mounting profile data',
   '[ ok ] Loading experience blocks',
@@ -390,7 +396,7 @@ export const sections: Record<string, string> = {
   contact: wrapSection(
     'Contact',
     'Recruiter-friendly contact block',
-    `Website: <a href="https://gionag.com" target="_blank">gionag.com</a><br>giona.granchelli@gmail.com<br>LinkedIn: <a href="https://www.linkedin.com/in/giona-granchelli" target="_blank">giona-granchelli</a><br>GitHub: <a href="https://github.com/GionaGranchelli" target="_blank">github.com/GionaGranchelli</a><br>Projects: <a href="https://gionag.com/projects" target="_blank">gionag.com/projects</a>`,
+    `Website: <a href="https://gionag.com" target="_blank">gionag.com</a><br>Studio: <a href="https://constant-labs.com" target="_blank">constant-labs.com</a><br>Open source: <a href="https://tramai.dev" target="_blank">tramai.dev</a><br>giona.granchelli@gmail.com<br>LinkedIn: <a href="https://www.linkedin.com/in/giona-granchelli" target="_blank">giona-granchelli</a><br>GitHub: <a href="https://github.com/GionaGranchelli" target="_blank">github.com/GionaGranchelli</a><br>Projects: <a href="https://gionag.com/projects" target="_blank">gionag.com/projects</a>`,
     '#86efac'
   ),
   clear: '',
@@ -409,6 +415,8 @@ Finance & core modernization, backend engineering, cloud & platform, <b>Agentic 
 <b>Portfolio</b><br>
 <a href="https://gionag.com" target="_blank">gionag.com</a> - interactive terminal-style CV and project portfolio.<br><br>
 <b>Projects & Contributions</b><br>
+<b>Constant Labs</b>: Independent software studio building custom AI agents, web applications, and workflow automation (<a href="https://constant-labs.com" target="_blank">constant-labs.com</a>).<br>
+<b>TramAI</b>: Open-source Java and Kotlin runtime for governed AI applications with portable providers, approval controls, and auditable execution (<a href="https://tramai.dev" target="_blank">tramai.dev</a>).<br>
 <b>IntelliAiBridge</b>: Secure local proxy plugin that lets external agents work through an authenticated IntelliJ Copilot session using the standard OpenAI protocol (<a href="https://github.com/GionaGranchelli/IntelliAiBridge" target="_blank">GitHub</a>).<br>
 <b>VU-Voetbal</b>: Match planning & team balancing platform for football groups (<a href="https://vuvoetbal.gionag.com" target="_blank">vuvoetbal.gionag.com</a>).<br>
 <b>Yous</b>: Bilingual storytelling platform for personal growth and transformation (<a href="https://youscommunity.com" target="_blank">youscommunity.com</a>).<br>
