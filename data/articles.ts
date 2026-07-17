@@ -512,7 +512,7 @@ String response = model.chat("Qualify this lead");</code></pre>
         When approval workflows, audit requirements, provider routing, or deployment control become central to the design, evaluate TramAI as the runtime for that bounded workflow. The <a href="https://tramai.dev" target="_blank" rel="noopener noreferrer">TramAI documentation</a> covers its approval gates, provider orchestration, and deterministic execution engine.
       </p>
       <p>
-        If your team needs a production AI agent built on the JVM — with proper governance, typed tools, and an architecture designed for regulated environments — <a href="https://constant-labs.com" target="_blank" rel="noopener noreferrer">Constant Labs</a> builds these systems for companies across the Netherlands, Italy, and the EU.
+        If your team needs a production AI agent built on the JVM — with proper governance, typed tools, and an architecture designed for regulated environments — <a href="https://constant-labs.com/services/custom-ai-agents/?utm_source=gionag.com&utm_medium=referral&utm_campaign=java_ai_agents" target="_blank" rel="noopener noreferrer">Constant Labs</a> builds these systems for companies across the Netherlands, Italy, and the EU.
       </p>
       <p>
         The first API call is easy. Everything after that is engineering.
