@@ -1,0 +1,153 @@
+%% start of file `template.tex`.
+%% Copyright 2006-2013 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+\documentclass[10pt,a4paper,sans]{moderncv}
+
+% moderncv themes
+\moderncvstyle{classic}
+\moderncvcolor{orange}
+\usepackage{fontawesome}
+\providecommand\faSkype{{\FA\symbol{"F17E}}}
+
+\usepackage[scale=0.80]{geometry}
+\setlength{\hintscolumnwidth}{3cm}
+
+\name{Giona}{Granchelli}
+\title{Staff-Level Software Engineer | Java, Distributed Systems, and Modernization}
+\phone[mobile]{+31~(0)6~427433~16}
+\email{giona.granchelli@gmail.com}
+\social[linkedin]{giona-granchelli}
+\social[github]{GionaGranchelli}
+\extrainfo{\faSkype\ giona.granchelli}
+\photo[64pt][0.4pt]{me-2.jpg}
+\quote{Chapter Lead and senior software engineer with 10+ years of experience delivering staff-level impact across banking, fintech, and cloud-native environments. Strong background in Java and Kotlin backend systems, distributed architecture, Kafka, CQRS, and legacy-to-cloud modernization. Experienced in shaping technical direction, improving engineering practices, mentoring engineers, and connecting architecture decisions to delivery, reliability, and product outcomes. Actively applying AI-assisted development workflows to increase engineering effectiveness without lowering quality standards.}
+
+%----------------------------------------------------------------------------------
+% content
+%----------------------------------------------------------------------------------
+\begin{document}
+\vspace*{-2cm}
+\makecvtitle
+
+\section{Core Strengths}
+\cvitem{Architecture \& Modernization}{
+Distributed systems design, legacy-to-cloud transformation, migration strategy, technical debt reduction, architectural trade-off analysis
+}
+\cvitem{Backend \& Event-Driven Systems}{
+Java, Kotlin, Spring Boot, REST APIs, microservices, Kafka, CQRS, asynchronous messaging, integration patterns
+}
+\cvitem{Platform \& Operations}{
+Kubernetes, Docker, Azure, AWS, CI/CD, observability, developer platforms, reliability engineering
+}
+\cvitem{Financial Systems}{
+Regulated environments, reconciliation, ETL, financial data processing, operational robustness, support for critical data flows
+}
+\cvitem{Leadership \& Delivery}{
+RFC-style design communication, cross-team technical alignment, mentoring, engineering standards, product collaboration
+}
+
+\section{Selected Staff-Level Impact}
+\cvitem{Technical Direction}{
+Defined modernization paths for legacy services and platform capabilities, balancing delivery constraints with long-term maintainability and operational resilience.
+}
+\cvitem{Cross-Team Enablement}{
+Created reusable engineering patterns, deployment standards, and paved-road tooling that helped teams adopt modern delivery practices more consistently.
+}
+\cvitem{Distributed Systems Judgment}{
+Applied event-driven and data-integration patterns, including Kafka and CQRS, to decouple systems, improve scalability, and support reliable cross-domain communication.
+}
+\cvitem{Mentorship \& Standards}{
+Supported engineers through reviews, pairing, and architectural discussions, helping teams adopt stronger engineering practices in regulated and product-driven environments.
+}
+\cvitem{AI-Assisted Engineering}{
+Promoted GenAI and agentic workflows for coding, testing, documentation, and developer productivity, with attention to quality guardrails.
+}
+
+\section{Professional Experience}
+\cventry{Oct 2024 - Now}{Chapter Lead Java \& VueJS | Software Engineer IV}
+{ABN AMRO - BCDB}
+{Amsterdam, Netherlands}
+{}{
+Staff-level technical lead for modernization initiatives in a banking department responsible for legacy services and critical data flows, combining architecture work, hands-on implementation, and engineering enablement.
+\begin{itemize}
+ \item Defined modernization paths for legacy services, guiding teams toward cloud-native architectures on Azure AKS while keeping delivery aligned with operational and regulatory constraints.
+ \item Established Kubernetes-based platform patterns, CI/CD standards, and developer tooling that gave multiple teams a reusable path for containerization and deployment.
+ \item Designed and improved Kafka-based integration flows and batch-processing pipelines supporting critical banking workloads and downstream consumers.
+ \item Built reconciliation jobs and ETL transformations that improved confidence in financial data consistency across multiple banking systems.
+ \item Raised reliability and supportability of integration flows through better observability, failure handling, and operational diagnostics for business-critical workloads.
+ \item Acted as a technical multiplier across teams through migration guidance, architectural discussions, code reviews, and practical engineering standards.
+\end{itemize}
+}
+
+\cventry{2019 - 2024}{Software Engineer}
+{Ximedes}
+{Netherlands}
+{}{
+Backend and integration engineer in financial software environments, contributing to delivery in regulated and transaction-heavy domains.
+\begin{itemize}
+ \item Contributed to backend and integration work where correctness, maintainability, and clear service boundaries were critical to delivery.
+ \item Worked in engineering environments that required balancing implementation speed, product needs, and long-term system quality.
+\end{itemize}
+}
+
+\cventry{2017 - 2019}{Software Engineer}
+{BTC Direct / BLOX}
+{Netherlands}
+{}{
+Backend and platform engineer in a fast-moving fintech environment, contributing to distributed product capabilities and event-driven backend design.
+\begin{itemize}
+ \item Applied CQRS patterns to separate read and write concerns in product flows that required clear domain boundaries and scalable backend behavior.
+ \item Contributed to backend services and integration patterns for customer-facing crypto products, balancing product speed with maintainability and reliability.
+ \item Worked across engineering and product concerns to evolve APIs and internal service interactions in a rapidly changing domain.
+\end{itemize}
+}
+
+\cventry{2015 - 2017}{Software Engineer}
+{Trifork}
+{Netherlands}
+{}{
+Consulting-oriented software engineer working across enterprise teams and modern Java ecosystems, contributing to backend delivery and technical problem solving.
+\begin{itemize}
+ \item Contributed to the International Bureau of Education platform used by schools in Switzerland, building software in a domain where reliability, maintainability, and user-facing delivery quality mattered.
+ \item Worked on the BLOX project in a consulting capacity before later joining it directly, contributing to backend delivery in a fast-moving fintech and crypto product environment.
+ \item Strengthened Java backend and distributed-systems foundations across client engagements that required fast onboarding, sound design choices, and effective stakeholder collaboration.
+\end{itemize}
+}
+
+\cventry{2013 - 2015}{Software Engineer}
+{WoodWing}
+{Netherlands}
+{}{
+Product engineer contributing to software used in content and publishing workflows, with early experience in modularization, backend engineering, and gradual architectural change.
+\begin{itemize}
+ \item Worked on splitting a monolithic system by extracting an authentication and authorization module using a gradual strangler-style migration approach.
+ \item Contributed to a custom CQRS-style architecture built around a modified use of Elasticsearch, building early experience with separated read/write concerns and system evolution trade-offs.
+ \item Helped evolve product capabilities in a mature software environment where incremental modernization had to coexist with ongoing product delivery.
+\end{itemize}
+}
+
+\section{Education}
+\cventry{Sep 2015 - Mar 2017}{Master Degree in Computer Science}
+{University of L'Aquila}
+{L'Aquila, Italy}
+{cum laude}{
+Thesis: Architecture Recovery of Microservice-based Systems.
+}
+
+\cventry{Dec 2013 - Jun 2014}{First Level Postgraduate Master Degree in Web Technologies}
+{University of L'Aquila}
+{L'Aquila, Italy}
+{}{}
+
+\cventry{Sep 2009 - Jul 2013}{Bachelor Degree in Computer Science}
+{University of L'Aquila}
+{L'Aquila, Italy}
+{99/110}{
+Thesis: Automation control and reachable degree of automation through usage of commercial drones.
+}
+
+\end{document}

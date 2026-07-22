@@ -1,0 +1,152 @@
+# terminal-cv configuration
+# Copy this file to cv.yaml, edit it, then run: npx create-terminal-cv --config cv.yaml
+# Schema: schema/cv.schema.json
+
+profile:
+  name: Your Name
+  title: Your Professional Title
+  tagline: A short tagline that appears in the terminal header
+  photo: photo.jpg
+  siteUrl: https://yoursite.com
+  siteName: Your Name | Your Title
+
+socials:
+  email: you@example.com
+  linkedin: your-linkedin-handle
+  github: your-github-handle
+  twitter: your-twitter-handle
+
+bootSequence:
+  - "[ ok ] Mounting profile data"
+  - "[ ok ] Loading experience blocks"
+  - "[ ok ] Terminal ready"
+
+skills:
+  - TypeScript
+  - React
+  - Node.js
+  - Python
+  - PostgreSQL
+  - Docker
+  - AWS
+
+agenticSkills: |
+  <b>Agentic Workflows</b>: Building autonomous engineering assistants.<br>
+  <b>Context Engineering</b>: Designing surgical retrieval patterns for LLM context.<br>
+  <b>Tool-Augmented LLMs</b>: CLI-first execution bridges for agentic actions.
+
+experiences:
+  - company: Acme Corp
+    role: Senior Software Engineer
+    period: Jan 2023 - Now
+    location: San Francisco, CA
+    summary: Leading the platform team to build scalable cloud infrastructure.
+    bullets:
+      - Designed and implemented microservices architecture serving 1M+ users
+      - Migrated legacy monolith to Kubernetes on AWS EKS
+      - Built CI/CD pipelines reducing deployment time by 70%
+    stack:
+      - Go
+      - Kubernetes
+      - AWS
+      - Terraform
+      - PostgreSQL
+    achievements:
+      - Reduced infrastructure costs by 40% through spot instance optimization
+      - Achieved 99.99% uptime for critical services
+    challenges:
+      - Navigating a complex multi-cloud migration with zero downtime
+    impact: Transformed the platform from a single-point-of-failure monolith to a resilient distributed system.
+    content: |
+      <h3>Building the Platform Team</h3>
+      <p>In this role, I built and led the platform engineering team responsible for the infrastructure that powers all of Acme Corp's products.</p>
+      <p>The key challenge was migrating a decade-old monolith to a modern, scalable architecture without disrupting the business.</p>
+
+  - company: StartupXYZ
+    role: Full Stack Developer
+    period: Jun 2020 - Dec 2022
+    location: Remote
+    summary: Core engineer on a fintech platform serving 100K daily users.
+    bullets:
+      - Built payment processing backend handling $10M+ monthly volume
+      - Developed real-time dashboards with WebSockets
+      - Implemented fraud detection algorithms
+    stack:
+      - TypeScript
+      - React
+      - Node.js
+      - PostgreSQL
+      - Redis
+      - Docker
+
+projects:
+  - name: MySideProject
+    description: An open-source tool that does something useful.
+    url: https://mysideproject.dev
+    repo: https://github.com/you/mysideproject
+    stack:
+      - Rust
+      - Svelte
+      - SQLite
+    content: |
+      <p>A high-performance tool built with Rust and Svelte that solves a real problem.</p>
+
+  - name: AnotherProject
+    description: A community platform for creative collaboration.
+    url: https://anotherproject.com
+    stack:
+      - Next.js
+      - Prisma
+      - PostgreSQL
+    content: |
+      <p>A platform connecting creators with collaborators around the world.</p>
+
+education:
+  - degree: MSc Computer Science
+    school: University of Technology
+    period: 2018 - 2020
+    location: City, Country
+    note: cum laude
+    details: Distributed Systems, Machine Learning, Software Architecture
+    thesis: A Novel Approach to Distributed Consensus
+    supervisors: Prof. Jane Smith
+
+  - degree: BSc Computer Science
+    school: University of Technology
+    period: 2015 - 2018
+    location: City, Country
+
+publications:
+  - title: A Novel Approach to Distributed Consensus
+    venue: Proceedings of the International Conference on Distributed Systems, 2020
+    url: https://example.com/paper.pdf
+
+articles:
+  - slug: my-first-article
+    title: My First Technical Article
+    description: A deep dive into something interesting.
+    date: "2025-06-15"
+    readingTime: 8 min read
+    tags:
+      - Engineering
+      - Architecture
+    content: |
+      <h2>Introduction</h2>
+      <p>This is where your article content goes. Full HTML is supported.</p>
+      <p>Write as much as you want — this becomes a full SEO-optimized page.</p>
+
+tour:
+  enabled: true
+  steps:
+    - command: about
+      delay: 3500
+    - command: skills
+      delay: 3500
+    - command: experience acme-corp
+      delay: 5000
+    - command: projects
+      delay: 4000
+    - command: education
+      delay: 4000
+    - command: contact
+      delay: 4000

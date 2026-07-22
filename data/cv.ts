@@ -425,7 +425,7 @@ Finance & core modernization, backend engineering, cloud & platform, <b>Agentic 
 `
 
 export function renderArticles() {
-  const list = articles.map(a => `• <b>${a.slug}</b>: ${a.title}`).join('<br>')
+  const list = articles.map(a => `• <b>${a.slug}</b>: <a href="/articles/${a.slug}" target="_blank">${a.title}</a>`).join('<br>')
   return wrapSection(
     'Articles & Case Studies',
     `${articles.length} deep dives available`,

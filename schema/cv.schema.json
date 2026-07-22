@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://terminal-cv.dev/schema/cv.schema.json",
+  "title": "Terminal CV Data",
+  "description": "Schema for terminal-cv YAML configuration. Define your profile, experiences, projects, education, and articles in a single file.",
+  "type": "object",
+  "required": ["profile", "experiences", "projects"],
+  "properties": {
+    "profile": {
+      "type": "object",
+      "required": ["name", "title", "tagline"],
+      "properties": {
+        "name": {"type": "string", "description": "Your full name (e.g. 'Giona Granchelli')"},
+        "title": {"type": "string", "description": "Your professional title (e.g. 'Senior Software Engineer')"},
+        "tagline": {"type": "string", "description": "One-line summary shown in the terminal header"},
+        "photo": {"type": "string", "description": "Path to your photo (relative to public/ or absolute URL)", "default": "photo.jpg"},
+        "siteUrl": {"type": "string", "format": "uri", "description": "Your site URL (e.g. 'https://gionag.com')", "default": "https://localhost:3000"},
+        "siteName": {"type": "string", "description": "Site name for SEO/meta tags"}
+      }
+    },
+    "socials": {
+      "type": "object",
+      "properties": {
+        "email": {"type": "string", "format": "email"},
+        "linkedin": {"type": "string", "description": "LinkedIn username (e.g. 'giona-granchelli')"},
+        "github": {"type": "string", "description": "GitHub username (e.g. 'GionaGranchelli')"},
+        "twitter": {"type": "string", "description": "Twitter/X handle without @ (e.g. 'GionaGranchelli')"}
+      }
+    },
+    "bootSequence": {
+      "type": "array",
+      "description": "Lines shown during the boot animation",
+      "items": {"type": "string"},
+      "default": [
+        "[ ok ] Mounting profile data",
+        "[ ok ] Loading experience blocks",
+        "[ ok ] Terminal ready"
+      ]
+    },
+    "skills": {
+      "type": "array",
+      "description": "List of skills shown in the skills and agentic sections",
+      "items": {"type": "string"}
+    },
+    "agenticSkills": {
+      "type": "string",
+      "description": "HTML content for the 'agentic' command output (AI/agentic skills section)"
+    },
+    "experiences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["company", "role", "period", "summary"],
+        "properties": {
+          "slug": {"type": "string", "pattern": "^[a-z0-9-]+$", "description": "URL-safe identifier, auto-generated from company if omitted"},
+          "company": {"type": "string"},
+          "role": {"type": "string"},
+          "period": {"type": "string", "description": "e.g. 'Oct 2024 - Now'"},
+          "location": {"type": "string", "default": ""},
+          "summary": {"type": "string", "description": "One-paragraph summary"},
+          "bullets": {"type": "array", "items": {"type": "string"}, "description": "Key responsibilities and achievements"},
+          "stack": {"type": "array", "items": {"type": "string"}, "description": "Technologies used"},
+          "achievements": {"type": "array", "items": {"type": "string"}},
+          "challenges": {"type": "array", "items": {"type": "string"}},
+          "impact": {"type": "string"},
+          "content": {"type": "string", "description": "Extended HTML content for the deep-linked experience page"},
+          "ogImage": {"type": "string", "description": "Custom Open Graph image for this experience page"}
+        }
+      }
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "properties": {
+          "slug": {"type": "string", "pattern": "^[a-z0-9-]+$", "description": "URL-safe identifier, auto-generated from name if omitted"},
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "url": {"type": "string", "format": "uri", "description": "Live project URL"},
+          "repo": {"type": "string", "format": "uri", "description": "GitHub repository URL"},
+          "stack": {"type": "array", "items": {"type": "string"}},
+          "content": {"type": "string", "description": "Extended HTML content for the deep-linked project page"},
+          "ogImage": {"type": "string"}
+        }
+      }
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["degree", "school", "period"],
+        "properties": {
+          "degree": {"type": "string"},
+          "school": {"type": "string"},
+          "period": {"type": "string"},
+          "location": {"type": "string", "default": ""},
+          "note": {"type": "string", "description": "e.g. 'cum laude', '99/110'"},
+          "details": {"type": "string"},
+          "thesis": {"type": "string"},
+          "supervisors": {"type": "string"}
+        }
+      }
+    },
+    "publications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "venue"],
+        "properties": {
+          "title": {"type": "string"},
+          "venue": {"type": "string", "description": "e.g. 'Proceedings of ICSA, IEEE, 2017'"},
+          "url": {"type": "string", "format": "uri"}
+        }
+      }
+    },
+    "articles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["slug", "title", "description", "date"],
+        "properties": {
+          "slug": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+          "title": {"type": "string"},
+          "description": {"type": "string"},
+          "date": {"type": "string", "format": "date"},
+          "readingTime": {"type": "string", "default": "5 min read"},
+          "tags": {"type": "array", "items": {"type": "string"}},
+          "content": {"type": "string", "description": "Full article HTML content"},
+          "file": {"type": "string", "description": "Path to a markdown file containing the article content"},
+          "ogImage": {"type": "string"}
+        }
+      }
+    },
+    "tour": {
+      "type": "object",
+      "description": "Guided tour configuration",
+      "properties": {
+        "enabled": {"type": "boolean", "default": true},
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["command", "delay"],
+            "properties": {
+              "command": {"type": "string", "description": "Command to run during the tour (e.g. 'about', 'experience my-role')"},
+              "delay": {"type": "integer", "description": "Milliseconds to wait after running this command"}
+            }
+          }
+        }
+      }
+    },
+    "colors": {
+      "type": "object",
+      "description": "Terminal color overrides (hex colors)",
+      "properties": {
+        "about": {"type": "string", "default": "#7dd3fc"},
+        "experience": {"type": "string", "default": "#86efac"},
+        "skills": {"type": "string", "default": "#fbbf24"},
+        "education": {"type": "string", "default": "#c084fc"},
+        "publications": {"type": "string", "default": "#fb7185"},
+        "projects": {"type": "string", "default": "#38bdf8"},
+        "contact": {"type": "string", "default": "#e2e8e8"}
+      }
+    }
+  }
+}
