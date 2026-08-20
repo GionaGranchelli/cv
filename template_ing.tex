@@ -1,0 +1,209 @@
+%% ING-tailored CV — Engineering Chapter Lead, AI & Agentic Platforms
+%% Based on template.tex (accurate data); re-targeted for careers.ing.com/en/job/-/-/2618/41539414528
+\documentclass[10pt,a4paper,sans]{moderncv}
+% Load icons before the style so the classic style can measure a bullet symbol
+% that exists in the free fontawesome5 set (default \faCircle[regular] is Pro-only)
+\pdfmapfile{+fontawesome5.map}
+\RequirePackage{fontawesome5}
+\renewcommand*{\listitemsymbol}{\faAngleRight}
+\moderncvstyle{classic}
+\moderncvcolor{orange}
+% \faGlobeAmericas is Pro-only; use the free solid globe
+\renewcommand*{\homepagesymbol}{{\color{homepage}\small\faGlobe}~}
+
+\usepackage[scale=0.80]{geometry}
+\setlength{\hintscolumnwidth}{3cm}
+\microtypesetup{expansion=false} % fa5 Type1 fonts are not expandable; keep kerning/protrusion
+
+\name{Giona}{Granchelli}
+\title{Engineering Chapter Lead | AI Platforms, Agentic Systems \& Distributed Architecture}
+\phone[mobile]{+31~(0)6~427433~16}
+\email{giona.granchelli@gmail.com}
+\social[linkedin]{giona-granchelli}
+\social[github]{GionaGranchelli}
+\homepage{gionag.com}
+\photo[64pt][0.4pt]{face.jpg}
+\quote{Engineering Chapter Lead and hands-on AI platform engineer in regulated banking, combining people leadership, enterprise delivery, and deep software architecture expertise. Copilot Champion and AI adoption lead at ABN AMRO; author of a governed multi-agent JVM runtime with approval controls and auditable execution. Strong background in LLM/RAG/agentic systems, distributed systems, Azure/Kubernetes, and secure production engineering.}
+%----------------------------------------------------------------------------------
+% content
+%----------------------------------------------------------------------------------
+\begin{document}
+\vspace*{-2cm}
+\makecvtitle
+
+\section{Core Skills}
+\cvitem{AI \& GenAI Engineering}{
+LLM systems, multi-agent orchestration, RAG and vector retrieval, prompt/context engineering, LLM evaluation and benchmarking, fine-tuning (QLoRA), self-hosted inference, Python for evaluation and pipeline tooling
+}
+\cvitem{AI Governance \& Compliance}{
+Approval controls, auditable execution, security-by-design, risk-aware AI adoption, regulated financial environments
+}
+\cvitem{Enterprise AI Integration}{
+API-driven model integration, portable provider abstraction, enterprise Copilot/IDE bridging, agentic coding workflows, SDLC integration
+}
+\cvitem{Backend \& Distributed Systems}{
+Java, Kotlin, Spring Boot, REST APIs, microservices, Kafka, CQRS, event-driven architecture, gRPC, data pipelines
+}
+\cvitem{Cloud \& Platform}{
+Kubernetes, Docker, Azure AKS, AWS, CI/CD, observability, reliability engineering, developer platforms
+}
+\cvitem{Leadership \& Delivery}{
+Engineering chapter leadership, talent development, architecture reviews, RFC-style communication, cross-team enablement, delivery performance management
+}
+
+\section{Professional Experience}
+\cventry{Oct 2024 - Now}{Chapter Lead Java \& VueJS | Software Engineer IV}
+{ABN AMRO - BCDB}
+{Amsterdam, Netherlands}
+{}{\textbf{Copilot Champion \& AI Adoption Lead.} \textbf{Engineering leadership:} lead the Java \& Vue chapter of approximately 45 engineers across 5 teams, accountable for engineering capability, technical standards, and cross-team delivery; coach and develop engineers, contribute to performance management and hiring processes, run architecture reviews, and translate priorities into executable delivery plans in partnership with Product, Architecture, Security, and Risk.
+\begin{itemize}
+ \item Established a shared repository of reusable agentic workflows for backend, frontend, and infrastructure teams, bringing governed AI-assisted engineering into everyday delivery.
+ \item Built the governance framework underpinning all agentic workflows: approval controls, auditable execution, and governed workflows with human-in-the-loop review.
+ \item Migrated 10 legacy applications (old Java, Struts, Spring Boot) using an agentic migration workflow, cutting an estimated 18+ months of effort to approximately 4 months.
+ \item Built agentic workflows integrating Azure DevOps for incident investigation and management, and an end-to-end software-delivery workflow that uses requirements and work-item context to generate and refine stories, implement changes, open PRs, perform reviews, and update engineering systems.
+ \item Led modernization initiatives for legacy services, defining migration paths toward cloud-native architectures on Azure AKS.
+ \item Designed Kubernetes-based platform patterns, CI/CD pipelines, and developer tooling to standardize containerization and deployment across teams.
+ \item Built and improved reconciliation jobs validating financial data consistency across multiple banking systems in a regulated environment.
+ \item Stack: Kubernetes, Azure, AKS, Azure DevOps, Java, TypeScript, Kafka, agentic AI workflows
+\end{itemize}
+}
+
+\cventry{Sep 2020 - Sep 2024}{Full-stack | Software Engineer IV}
+{ABN AMRO - Strategy and Innovation}
+{Amsterdam, Netherlands}
+{}{\textbf{PayDay:} core engineer for a fintech platform enabling instant payouts for gig-economy workers and freelancers.
+\begin{itemize}
+ \item Designed and implemented Kotlin and Spring Boot backend services for payment and payout workflows in a regulated financial environment.
+ \item Contributed to architecture decisions around transaction handling, system integration, and scalable service boundaries.
+ \item Delivered distributed services supporting financial transactions, workflow reliability, and user-facing product capabilities across backend, frontend, and mobile layers.
+ \item Stack: Kotlin, Spring Boot, Vue.js, Android, Docker, Kubernetes, AWS S3, PostgreSQL, GitLab CI
+\end{itemize}
+}
+
+\cventry{May 2020 - Jul 2020}{Software Engineer}
+{Ximedes}
+{Haarlem, Netherlands}
+{}{Project for the Dutch public transportation sector (NS): end-to-end solution enabling travel with QR codes instead of conventional tickets.
+\begin{itemize}
+ \item Built backend and integration components for ticketing workflows; contributed real-time features using WebSockets.
+ \item Stack: Kotlin, Ktor, REST, WebSocket, ReactJS, TypeScript, Redis
+\end{itemize}
+}
+
+\cventry{Oct 2019 - Apr 2020}{Full Stack Developer}
+{BLOX - BTC Direct}
+{Amsterdam / Nijmegen, Netherlands}
+{}{Cryptocurrency trading platform serving approximately 500k daily users.
+\begin{itemize}
+ \item Maintained and extended microservices for trading, account management, and analytics on a distributed event-driven architecture (Axon Framework, CQRS).
+ \item Improved stability and performance across multiple backend services.
+ \item Stack: Java 8, Kotlin, Spring Boot, REST, gRPC, Axon Framework, Node.js, ReactJS, MariaDB, Docker, Kubernetes, GitLab CI
+\end{itemize}
+}
+
+\cventry{Jan 2019 - Sep 2019}{Senior Software Developer}
+{WoodWing B.V.}
+{Zaandam, Netherlands}
+{}{Elvis, a scalable distributed Digital Asset Management system for creating, managing, and distributing digital assets.
+\begin{itemize}
+ \item Implemented an SSO solution integrating third-party and internal applications (AWS Cognito, Okta) and helped split a monolith by extracting auth capabilities.
+ \item Worked with a custom CQRS-style approach built around a modified use of Elasticsearch.
+ \item Stack: Java 8, Spring Framework, Elasticsearch, AWS, Jenkins, Docker, REST, AngularJS, Node.js, Okta
+\end{itemize}
+}
+
+\cventry{Jul 2017 - Jan 2019}{Full Stack Developer}
+{Trifork B.V.}
+{Amsterdam, Netherlands}
+{}{Multiple projects in small agile consultancy teams, combining backend delivery, frontend work, and rapid onboarding into new domains.
+\begin{itemize}
+ \item Contributed to IBE, a cloud-based teacher-student exam platform used in Switzerland; migrated and rebuilt CI/CD pipelines from Jenkins to GitLab.
+ \item Stack: J2EE, Kotlin, Spring Boot, REST, gRPC, Axon Framework, Node.js, ReactJS, Docker, Kubernetes, Jenkins, GitLab CI
+\end{itemize}
+}
+
+\cventry{Oct 2016 - Mar 2017}{Research Scholarship: Tactics (EU project)}
+{University of L'Aquila}
+{L'Aquila, Italy}
+{}{European project Tactics in collaboration with Thales Chieti and Finmeccanica (Leonardo): applying SOAP technology over a new ZigBee-based military tactical network for NATO troops.
+\begin{itemize}
+ \item Built SOA-based services on top of new-generation tactical networks; worked on J2EE, Spring Framework, Spring Boot, SOAP, REST, Hibernate, JQuery, DDS, WebDDS.
+\end{itemize}
+}
+
+\cventry{Mar 2016 - Sep 2016}{Research Scholarship: USRA}
+{University of L'Aquila}
+{L'Aquila, Italy}
+{}{Design and implementation of an enterprise system for the rebuilding of L'Aquila after the earthquake, in collaboration with USRA (Ufficio Speciale Ricostruzione dell'Aquila): the application handles the complex process of inspection, review, request, classification, and refund of real estate after a natural disaster. Developed the application from scratch.
+\begin{itemize}
+ \item Stack: J2EE, Hibernate, Spring Framework, Maven, SVN, REST, JQuery, MySQL, HTML5, CSS3
+\end{itemize}
+}
+
+\cventry{Jun 2015 - Jan 2016}{Research Scholarship: Regione Abruzzo}
+{University of L'Aquila}
+{L'Aquila, Italy}
+{}{Design and implementation of the website and cross-platform mobile app for Regione Abruzzo for Expo Milano 2015.
+\begin{itemize}
+ \item Stack: PHP, MySQL, HTML5, CSS3, Backbone.js, Node.js, Cordova, REST
+\end{itemize}
+}
+
+\cventry{2013 - 2015}{Web Developer}
+{Freelance}
+{Pescara, Italy}
+{}{Design and development of websites for local businesses.
+\begin{itemize}
+ \item Stack: PHP, Java (J2EE), JavaScript, HTML5, CSS3, MySQL
+\end{itemize}
+}
+
+\section{Selected AI Platform Work}
+\cvitem{TramAI (open source, Apache-2.0)}{
+Author and maintainer of a JVM runtime for governed AI applications: portable model providers, approval controls, auditable execution, and multi-agent workflows for production systems (\href{https://tramai.dev}{tramai.dev}, \href{https://github.com/GionaGranchelli/tramAI}{github.com/GionaGranchelli/tramAI}).
+}
+\cvitem{LLM Operations \& Evaluation}{
+Operate self-hosted inference and benchmarking infrastructure (llama.cpp, GPU workstations); evaluate and compare local model variants; build fine-tuning pipelines for domain-specific assistants.
+}
+\cvitem{IntelliAiBridge}{
+IntelliJ Platform integration enabling approved agentic tooling to use enterprise Copilot capabilities while preserving enterprise authentication, authorization, and network/data boundaries (AiBridge Plugin for JetBrains IDEs, JetBrains Marketplace: \href{https://share.google/5Kz9f7VJP58gyIlbQ}{AiBridge}).
+}
+\cvitem{RAG \& Retrieval (QMD/OpenClaw)}{
+Built a local Query-Markdown RAG system providing surgical retrieval over thousands of personal and project documents; researched multi-model orchestration on a Kotlin Multiplatform/Ktor control surface to keep LLM context high-precision.
+}
+\cvitem{Constant Labs (\href{https://constant-labs.com}{constant-labs.com})}{
+Founder of an independent software studio delivering custom AI agents, voice-agent demonstrations, and workflow automation for European businesses.
+}
+\cvitem{WhichDistro (\href{https://whichdistro.com}{whichdistro.com})}{
+Deterministic, schema-driven Linux distribution picker: turns user preferences into an explicit, transparent recommendation flow rather than a vague quiz (Nuxt 3, TypeScript, Zod).
+}
+
+\section{Talks \& Teaching}
+\cvitem{June 2026}{Guest lecturer, Vrije Universiteit Amsterdam (VU Amsterdam): industry lecture on AI-assisted and agentic software engineering.}
+\cvitem{2026}{Speaker, Ktconf 2026 (Kotlin conference).}
+
+\section{Education}
+\cventry{Sep 2015 - Mar 2017}{Master Degree in Computer Science}
+{University of L'Aquila}
+{L'Aquila (AQ), Italy}
+{maximum score, cum laude}{
+Thesis: Architecture Recovery of Microservice-based Systems.
+}
+
+\cventry{Dec 2013 - Jun 2014}{First Level Postgraduate Master Degree in Web Technologies}
+{University of L'Aquila}
+{L'Aquila (AQ), Italy}
+{}{}
+
+\cventry{Sep 2009 - Jul 2013}{Bachelor Degree in Computer Science}
+{University of L'Aquila}
+{L'Aquila (AQ), Italy}
+{99/110}{
+Thesis: Automation control and reachable degree of automation through usage of commercial drones.
+}
+
+\section{Publications}
+\cvitem{[1]}{MicroART: A Software Architecture Recovery Tool for Maintaining Microservice-based Systems. In Proceedings of the 14th International Conference on Software Architecture (ICSA). IEEE, 2017.}
+\cvitem{[2]}{Towards Recovering the Software Architecture of Microservice-based Systems. In IEEE International Workshop on Architecting with MicroServices (AMS), April 2017.}
+
+\end{document}
