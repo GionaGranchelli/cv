@@ -58,7 +58,7 @@
         @up="prev"
         @down="next"
         @tab="autocomplete"
-        @pick="applySuggestion"
+        @pick="onPick"
       />
     </div>
   </section>
@@ -154,9 +154,22 @@ function runQuick(value: string) {
   onSubmit()
 }
 
+function onPick(value: string) {
+  trackFirstInteraction()
+  applySuggestion(value)
+  scrollToBottom()
+}
+
 function handleGlobalClick(e: MouseEvent) {
   if (!showIdentity.value) return
   const target = e.target as HTMLElement
+  const cmdEl = target.closest<HTMLElement>('[data-cmd]')
+  if (cmdEl?.dataset.cmd) {
+    e.preventDefault()
+    trackFirstInteraction()
+    runQuick(cmdEl.dataset.cmd)
+    return
+  }
   if (target.closest('a') || target.closest('button') || target.closest('input')) {
     return
   }

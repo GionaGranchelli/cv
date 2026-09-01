@@ -16,7 +16,7 @@ export function useTerminal() {
   const suggestions = computed(() => {
     const value = command.value.trim().toLowerCase()
     if (!value) return []
-    return commandList.filter(cmd => cmd.startsWith(value)).slice(0, 5)
+    return [...new Set(allAutocompleteOptions())].filter(cmd => cmd.startsWith(value)).slice(0, 5)
   })
 
   function setActiveExperience(index: number) {
@@ -151,7 +151,7 @@ export function useTerminal() {
   function applySuggestion(value: string) {
     isTourActive.value = false
     command.value = value
-    autocompleteHint.value = value
+    runCommand(value)
   }
 
   return { 
