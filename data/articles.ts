@@ -713,5 +713,102 @@ String response = model.chat("Qualify this lead");</code></pre>
         That is the paradox. The most successful modernization programs do not look dramatic from the outside. Internally, though, they replace dependence on heroics with dependence on systems. And that is what real modernization is: not newer technology for its own sake, but a safer and more adaptable institution built on better engineering constraints.
       </p>
     `
+  },
+  {
+    slug: 'jvm-underrated-for-ai',
+    title: 'Why I Still Think the JVM Is Underrated for AI Applications',
+    description: 'Most AI examples start in Python, but production AI systems are software systems containing models. Java and Kotlin, and the JVM more broadly, are underrated places to build them.',
+    date: '2026-09-01',
+    readingTime: '10 min read',
+    tags: ['Java', 'Kotlin', 'JVM', 'AI Applications', 'TramAI', 'Architecture'],
+    content: `
+      <p>Most AI examples start in Python, and that makes sense. Python has the strongest machine-learning ecosystem, excellent libraries, notebooks, fast experimentation, and direct access to most new research. If I were training a new architecture, experimenting with CUDA kernels, or reproducing a research paper, Python would probably be my first choice too.</p>
+      <p>But putting AI inside a business application is not the same problem as training a model, and I think we often confuse the two. Over the last few years I have become increasingly convinced that Java and Kotlin, and the JVM more broadly, are underrated places to build production AI systems. Not because the JVM is better at machine learning. Machine learning is only one component of an AI application, and once a model starts interacting with real software, the hard problems start to look surprisingly familiar.</p>
+      <h2>The model call is usually the easy part</h2>
+      <p>Calling a model from Java is unremarkable. Conceptually it is a single line:</p>
+      <pre><code>var response = model.generate(prompt);</code></pre>
+      <p>The difficult questions arrive afterwards:</p>
+      <ul>
+        <li>What happens if the provider times out?</li>
+        <li>How do we validate structured output?</li>
+        <li>Which model should receive confidential data?</li>
+        <li>Can the model invoke application tools?</li>
+        <li>What happens if an operation requires human approval?</li>
+        <li>How do we resume after a restart?</li>
+        <li>How do we prevent the same side effect from executing twice?</li>
+        <li>How do we test this without depending on the model?</li>
+        <li>How do we trace what happened across several services?</li>
+      </ul>
+      <p>At that point the problem stops being primarily machine learning and starts being distributed systems, security, application architecture, and operations. Those are areas where the JVM ecosystem has spent decades getting very good.</p>
+      <h2>AI applications are still applications</h2>
+      <p>There is a tendency to treat AI software as a completely new category. Sometimes it is. But many production AI systems are ultimately doing familiar things:</p>
+      <pre><code>receive request
+      ↓
+read data
+      ↓
+call external dependency
+      ↓
+make decision
+      ↓
+possibly execute side effect
+      ↓
+persist state
+      ↓
+emit telemetry</code></pre>
+      <p>The only unusual component is the probabilistic decision in the middle:</p>
+      <pre><code>make decision
+      ↓
+probabilistic model</code></pre>
+      <p>The rest of the system still needs normal software guarantees. That is why I increasingly think of an LLM as another unreliable, nondeterministic dependency inside an otherwise conventional application. A powerful dependency, but still a dependency.</p>
+      <h2>Strong types matter more around probabilistic systems</h2>
+      <p>A common criticism of strongly typed languages in AI is that models themselves are probabilistic. Why bother with types if the model may produce unexpected output? I think that gets the relationship backwards. The less predictable one component becomes, the more useful explicit boundaries become around it.</p>
+      <p>Suppose an application expects an <code>InvoiceAnalysis</code> with a supplier, an amount, a currency, and a risk. The model may still produce the wrong amount. A type system cannot make it factually correct, but it can make the software contract explicit. Instead of "some JSON-ish text", the surrounding system can reason about a valid <code>InvoiceAnalysis</code> or an explicit failure. The goal is not to make the LLM deterministic; it is to prevent its uncertainty from spreading through the entire codebase. That is an area where Java and Kotlin feel natural.</p>
+      <h2>The business systems are already on the JVM</h2>
+      <p>This is probably the most pragmatic reason. A huge amount of important business software already runs on Java: banks, insurance systems, telecommunications, payment platforms, logistics, retail, government systems, enterprise SaaS. Those applications already have authentication, authorization, databases, queues, metrics, tracing, CI/CD, incident processes, and teams who understand the platform.</p>
+      <p>Then AI arrives and someone proposes a Java application calling a new Python AI microservice over HTTP, which calls the model provider. Sometimes that architecture is absolutely justified. But sometimes we have created a new distributed system simply because most AI tutorials happened to be written in Python. The new setup brings another deployment, another runtime, another dependency graph, another security boundary, another observability stack, another team ownership question, and another failure mode. For a sufficiently complex AI capability that separation may be worth it. For many integrations it may not.</p>
+      <h2>Python stays the obvious choice for the research side</h2>
+      <p>This is not an argument against Python. It remains the obvious choice for large parts of AI. The mistake is assuming that because AI uses Python libraries, the AI application must be Python. Training and serving models is one problem; integrating models into applications is another. A JVM service can perfectly reasonably call OpenAI, Anthropic, vLLM, Ollama, a GPU inference service, or an internal model gateway without implementing the inference engine itself. The model may still run in Python, C++, CUDA, ROCm, or something else entirely. The application does not need to.</p>
+      <h2>Spring solves the boring problems, and boring is a compliment</h2>
+      <p>"Boring" is a compliment in production software. Spring Boot already gives teams familiar mechanisms for configuration, dependency injection, HTTP clients, security, persistence, retries, metrics, tracing, health checks, lifecycle management, and testing. AI frameworks can build on those concepts instead of inventing replacements. A model provider can be another configured dependency. A typed AI capability can be another injected interface. A policy engine can participate in normal application composition. An approval worker can use normal database transactions and background processing. This reduces the conceptual distance between "our application" and "our AI application", which matters for teams expected to maintain the software for years.</p>
+      <h2>AI makes operational maturity more important, not less</h2>
+      <p>A traditional HTTP dependency fails in relatively obvious ways: 200, 400, 500, timeout. An LLM dependency can fail more creatively. It can time out, throttle, return malformed output, return structurally valid but wrong output, request an unexpected tool, exceed token limits, or produce different answers to equivalent requests. That makes observability more important, not less. You still need metrics, traces, correlation IDs, structured logs, timeouts, circuit breakers, and failure taxonomies, but you may also need to record which model was selected, which provider, which policy decision, whether structured output failed, whether a repair was attempted, tool authorization, and approval state. These concepts fit naturally into mature service infrastructure.</p>
+      <h2>Concurrency, durability, and transactions still matter</h2>
+      <p>AI demos are often synchronous. Production workflows often are not. Consider a document that arrives, a model that analyzes it, a high-risk action that gets proposed, and a human approval that is required. The human may respond four hours later. Now you need persistence, workflow identity, resume semantics, idempotency, and concurrency control. These are not primarily AI problems; they are application-runtime problems. The JVM has excellent tools and well-understood patterns for building systems like this. Java's concurrency model has improved substantially over time, and Kotlin coroutines provide another useful abstraction for asynchronous workflows. The point is not that these tools solve AI governance automatically; it is that the ecosystem already has strong foundations for the systems surrounding AI.</p>
+      <p>The same applies to transactions. Imagine an AI workflow that creates an approval request. You may need to atomically persist the approval request, the suspended workflow state, and the continuation metadata. If only two of those three writes succeed, the workflow may become impossible to recover safely. This is a boring database-transaction problem, and boring database-transaction problems are exactly the kind of thing mature backend stacks handle well. AI does not eliminate ACID; it creates new reasons to care about it.</p>
+      <h2>Tool calling is application security</h2>
+      <p>Enterprise Java developers already understand a useful distinction: capability is not authorization. An LLM may know that a tool exists; that does not mean it should be allowed to execute it. A model may propose <code>refundCustomer(2000)</code> and the runtime can still decide DENY or REQUIRE_APPROVAL. This starts looking much less like prompt engineering and much more like ordinary authorization architecture, which is a good thing. We should reuse decades of software-security thinking rather than pretend agents invented permissions.</p>
+      <h2>Deterministic testing around nondeterministic models</h2>
+      <p>A lot of AI development ends up testing the model: send a prompt, inspect the response, hope it looks correct. That is useful for evaluation, but not sufficient for application correctness. I want to test things like confidential data being denied to a cloud provider, a high-value payment requiring approval, an unknown tool being denied, a provider timeout selecting an approved fallback, and a duplicate resume executing the side effect only once. None of those tests should require a live LLM. They are application invariants, and they should be deterministic. The JVM testing ecosystem is excellent at this style of engineering.</p>
+      <h2>You do not need an AI architecture</h2>
+      <p>One thing I increasingly dislike is architecture that separates "AI" from the rest of the application so aggressively that it becomes its own universe. You end up with business architecture, AI architecture, agent architecture, and orchestration architecture. I would rather have one application architecture with an explicit boundary for probabilistic execution:</p>
+      <pre><code>Business logic
+      ↓
+Typed AI capability
+      ↓
+Runtime controls
+      ↓
+Model provider</code></pre>
+      <p>AI remains special where it needs to be special; everything else remains normal software.</p>
+      <h2>When the JVM is not the right choice</h2>
+      <p>There are situations where I would not choose it. Training models, experimenting with new architectures, writing GPU kernels, rapidly testing research libraries, or building around a Python-only scientific stack, I would likely use Python. Likewise, if an organization already has a mature Python AI platform with excellent operational ownership, introducing Java just for ideological symmetry would make no sense. Technology choices should follow constraints. The argument is not that Java should replace Python in AI. It is that Python's dominance in AI research should not automatically determine the architecture of production business applications. Those are different domains.</p>
+      <h2>Why I ended up building TramAI on the JVM</h2>
+      <p>This thinking is one of the reasons I started building TramAI. I wanted to experiment with what AI integration could look like if the model was treated as one governed component inside a normal JVM application. That led to concerns such as typed contracts, structured output, provider abstraction, data classification, runtime policy, tool authorization, human approval, recovery, and audit evidence. None of those ideas require Java, but Java and Kotlin provide an environment where making those boundaries explicit feels natural. More importantly, it lets JVM teams add AI without abandoning the architecture, tooling, and operational experience they already have. That matters to me more than making another AI abstraction look clever in a notebook.</p>
+      <h2>The JVM's advantage is not AI</h2>
+      <p>The JVM's advantage is not that it is particularly good at AI. It is that it is very good at everything surrounding AI:</p>
+      <pre><code>Model
+     │
+     ├── contracts
+     ├── authorization
+     ├── persistence
+     ├── transactions
+     ├── concurrency
+     ├── retries
+     ├── observability
+     ├── security
+     └── testing</code></pre>
+      <p>As AI moves from demonstrations into actual business systems, those concerns become increasingly important. The model is only one box.</p>
+      <p>Python deserves its position at the center of modern AI, but production AI applications are not just models; they are software systems containing models. Once I frame the problem that way, Java and Kotlin start looking much more compelling. The question I ask is no longer which language has the best AI ecosystem, but where the business system that surrounds the model should live. For many organizations that already run critical software on the JVM, the answer may be much simpler than the industry sometimes makes it seem.</p>
+      <p>Keep the model where it runs best. Keep the application where your organization knows how to build reliable software. Put a clear boundary between the two.</p>
+    `
   }
 ]
