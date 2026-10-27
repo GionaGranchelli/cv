@@ -12,6 +12,7 @@
         </label>
       </div>
 
+
       <span class="status">online</span>
     </header>
 
@@ -44,7 +45,9 @@
         <button type="button" @click="runQuick('articles')" v-umami="'quick-articles'">articles</button>
         <button type="button" @click="runQuick('education')" v-umami="'quick-education'">education</button>
         <button type="button" @click="runQuick('publications')" v-umami="'quick-publications'">publications</button>
+        <button type="button" @click="runQuick('cv')" v-umami="'quick-cv'">cv</button>
         <button type="button" @click="runQuick('neofetch')" v-umami="'quick-neofetch'">neofetch</button>
+        <button type="button" @click="runQuick('contact')" v-umami="'quick-contact'">contact</button>
       </div>
 
       <CommandHistory v-if="showIdentity" :history="history" />

@@ -334,6 +334,7 @@ export const commandList = [
   'articles',
   'articles agentic-workflows-modern-engineering',
   'articles modernizing-banking-legacy-to-cloud',
+  'articles best-tools-you-never-call',
   'study',
   'projects',
   'projects constant-labs',
@@ -344,7 +345,7 @@ export const commandList = [
   'projects yous',
   'projects whichdistro',
   'contact',
-  'clear',
+  'cv',
   'ls',
   'cat cv',
   'search',
@@ -365,7 +366,7 @@ function wrapSection(title: string, subtitle: string, body: string, accent = '#7
 }
 
 export const sections: Record<string, string> = {
-  help: `Available commands:<br>• help<br>• about<br>• skills<br>• agentic (AI focus)<br>• experience<br>• experience ls<br>• experience &lt;slug&gt;<br>• articles<br>• search &lt;query&gt;<br>• next<br>• prev<br>• back<br>• education<br>• publications<br>• study<br>• projects<br>• contact<br>• clear<br>• ls<br>• cat cv<br>• neofetch`,
+  help: `Available commands:<br>• help<br>• about<br>• skills<br>• agentic (AI focus)<br>• experience<br>• experience ls<br>• experience &lt;slug&gt;<br>• articles<br>• search &lt;query&gt;<br>• next<br>• prev<br>• back<br>• education<br>• publications<br>• study<br>• projects<br>• contact<br>• cv<br>• clear<br>• ls<br>• cat cv<br>• neofetch`,
   about: wrapSection(
     'About',
     'Senior software engineer and chapter lead',
@@ -397,6 +398,12 @@ export const sections: Record<string, string> = {
     'Contact',
     'Recruiter-friendly contact block',
     `Website: <a href="https://gionag.com" target="_blank">gionag.com</a><br>Studio: <a href="https://constant-labs.com" target="_blank">constant-labs.com</a><br>Open source: <a href="https://tramai.dev" target="_blank">tramai.dev</a><br>giona.granchelli@gmail.com<br>LinkedIn: <a href="https://www.linkedin.com/in/giona-granchelli" target="_blank">giona-granchelli</a><br>GitHub: <a href="https://github.com/GionaGranchelli" target="_blank">github.com/GionaGranchelli</a><br>Projects: <a href="https://gionag.com/projects" target="_blank">gionag.com/projects</a>`,
+    '#86efac'
+  ),
+  cv: wrapSection(
+    'Download Full CV',
+    'PDF format for recruiters',
+    `A complete PDF version of this CV is available for download. It includes all professional experience, education, publications, and skills in a standard format.<br><br><a href="/Curriculum_Giona_Latex.pdf" download>⬇ Download CV (PDF)</a>`,
     '#86efac'
   ),
   clear: '',

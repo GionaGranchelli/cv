@@ -42,6 +42,7 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': { prerender: true },
+    '/plain': { prerender: true },
     '/experience/**': { prerender: true },
     '/articles/**': { prerender: true },
     '/projects/**': { prerender: true }
@@ -62,6 +63,7 @@ export default defineNuxtConfig({
     },
     urls: [
         { loc: '/', priority: 1.0, changefreq: 'weekly' },
+        { loc: '/plain', priority: 0.9, changefreq: 'monthly' },
         { loc: '/experience', priority: 0.8, changefreq: 'monthly' },
         { loc: '/projects', priority: 0.8, changefreq: 'monthly' },
         { loc: '/articles', priority: 0.8, changefreq: 'weekly' },
@@ -76,6 +78,7 @@ export default defineNuxtConfig({
         { loc: '/articles/java-production-ai-agents', priority: 0.9 },
         { loc: '/articles/agentic-workflows-modern-engineering', priority: 0.9 },
         { loc: '/articles/modernizing-banking-legacy-to-cloud', priority: 0.9 },
+        { loc: '/articles/best-tools-you-never-call', priority: 0.9 },
         { loc: '/projects/constant-labs', priority: 0.9 },
         { loc: '/projects/tramai', priority: 0.9 },
         { loc: '/projects/openclaw-qmd', priority: 0.8 },

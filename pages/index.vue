@@ -1,10 +1,10 @@
 <template>
   <main class="shell">
+    <ViewToggle current="terminal" />
     <SsrContent />
     <TerminalWindow />
   </main>
 </template>
-
 <script setup lang="ts">
 useSeoMeta({
   title: 'Senior Software Engineer & Chapter Lead',
@@ -94,7 +94,3 @@ useHead({
   ]
 })
 </script>
-
-<style scoped>
-.shell { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
-</style>

@@ -22,3 +22,6 @@ body {
 
 a { color: var(--accent); }
 button, input { font: inherit; }
+
+/* shared page frame for the terminal and plain views */
+.shell { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
