@@ -16,7 +16,7 @@ body {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   background:
     radial-gradient(circle at top, rgba(99,255,154,0.08), transparent 40%),
-    linear-gradient(180deg, #06110a 0%, #020504 100%);
+    linear-gradient(280deg, #06110a 0%, #020504 100%);
   color: var(--text);
 }
 
