@@ -810,5 +810,41 @@ Model provider</code></pre>
       <p>Python deserves its position at the center of modern AI, but production AI applications are not just models; they are software systems containing models. Once I frame the problem that way, Java and Kotlin start looking much more compelling. The question I ask is no longer which language has the best AI ecosystem, but where the business system that surrounds the model should live. For many organizations that already run critical software on the JVM, the answer may be much simpler than the industry sometimes makes it seem.</p>
       <p>Keep the model where it runs best. Keep the application where your organization knows how to build reliable software. Put a clear boundary between the two.</p>
     `
+  },
+  {
+    slug: 'best-tools-you-never-call',
+    title: 'The Best Tools Are the Ones You Never Call',
+    description: 'Notes from a year of babysitting AI coding agents: why a compaction command is the wrong interface, and what autonomous multi-agent work does to developer hardware.',
+    date: '2026-10-27',
+    readingTime: '5 min read',
+    tags: ['AI agents', 'Developer tools', 'Rust', 'Local inference'],
+    content: `
+<p>A few months ago I noticed a pattern in my daily routine. I was spending more time than ever working with AI coding agents, Claude Code, Antigravity, Codex CLI and Pi among them, and when everything clicked it felt like science fiction. I would describe an architectural boundary and a subsystem would appear.</p>
+      <p>By the third hour of any non-trivial session a different feeling set in. The fatigue came from babysitting a context window, not from the engineering itself. I was watching the token counter in the corner of my terminal, trimming shell output before pressing enter, opening transcripts to delete repeated file reads. When things got slow I ran the harness compaction command, waited twenty seconds for a model to write a summary in English, and then spent the next ten minutes explaining why the code it had just written was no longer in its memory.</p>
+      <p>At some point I stopped calling that pairing. I was working as an unpaid garbage collector for a stateless language model, and paying for the privilege.</p>
+      <p>That observation turned into a question I could not let go of. Why do we accept developer tools that need manual maintenance, and what would a tool look like if it were genuinely ambient?</p>
+      <h2>The command is the wrong interface</h2>
+      <p>In developer tooling there is a reflex to answer every friction with a new command. When an agent's working memory fills up with duplicate file reads and failed test output, the default response is to add a slash command and hand the problem back to the user. Give them a button.</p>
+      <p>I think that is a failure of interface design. Your operating system does not interrupt you to ask whether it should reclaim dirty memory pages. When a process needs virtual memory, the allocator and the kernel do the work, deterministically, far below the threshold where a human could notice. Your autonomic nervous system does not schedule heartbeats. The moment an essential system depends on conscious, repetitive management, it stops being infrastructure and becomes a second job.</p>
+      <p>The same argument applies to a prompt. Context is memory. If it needs a manual collection command, the tool has not solved the problem, it has moved it somewhere the user still has to stand.</p>
+      <h2>Designing for zero UI</h2>
+      <p>That constraint shaped contextWatcher, the Rust tool I built to sit between the agent harness and the model. I did not want a dashboard. I did not want a second monitor showing graphs of my attention budget. I wanted the tool to do its work silently and tell me almost nothing.</p>
+      <p>The only interface I kept is one line of text, printed occasionally:</p>
+      <pre><code>cw [pulse] saved 12,966 tokens | KV cache 98.2% preserved | TTFT 171s -> 1.6s (105x) | $0.18 saved</code></pre>
+      <p>You read it, you register that something useful happened, and you go back to the problem. No panel, no configuration file to maintain, no habit to build. If a tool requires me to remember that it exists, it has already failed.</p>
+      <h2>Four agents, one prefix</h2>
+      <p>The longer I ran this against real repositories, the more obvious a second shift became. The single assistant is already an outdated model of how this work happens. A serious feature is not written by one generalist agent chatting with me. It is written by a small team: one agent designs the interface, another implements it, a third writes the tests, a fourth reviews dependencies.</p>
+      <p>Run four agents on the same repository and the naive setup falls apart for a boring reason. Each agent re-sends the same system prompt, workspace rules and tool schemas. In a benchmark I ran on two Radeon Instinct GPUs, four subagents were sending 12,886 tokens of prompt where 3,286 carried the actual information. The GPU was spending its time re-reading one prefix four times.</p>
+      <p>Because that shared part is byte-identical, it can be shared instead of recomputed. Pinning a common prefix in GPU memory and routing each agent to it cut team prompt memory by about 75%, and follow-on agents went from twenty-second prefills to under two hundred milliseconds. The interesting part is that a four-agent team becomes feasible on hardware a developer actually owns.</p>
+      <h2>Deterministic beats probabilistic</h2>
+      <p>Most of the current excitement in this field is about nondeterminism: models writing prompts for other models, chains of inference refining each other. Building this tool was a reminder of how much of the problem needs none of that.</p>
+      <p>You do not need a large neural network to know that if an agent read auth.rs in turn two, edited it in turn five and read it again in turn eight, the copy from turn two is dead. You do not need probabilistic judgement to know that a four thousand line stack trace can be reduced to the command that produced it, the first lines, and the failure. A content hash, a prefix diff and a few hundred lines of careful Rust answer those questions exactly, in under a millisecond, for free, and they cannot invent an answer that is not there.</p>
+      <p>Models are genuinely useful for plenty of this work, but the parts with an exact answer should stay exact. A tool that reaches for inference to solve a counting problem is choosing a slower, more expensive and less reliable path because the model is fashionable.</p>
+      <p>If you want the systems version of this argument, with the KV-cache mechanics and the benchmark matrices, it is published as <a href="https://constant-labs.com/blog/why-compact-breaks-your-kv-cache/">a technical deep dive on Constant Labs</a>. The code is on <a href="https://github.com/GionaGranchelli/context-watcher">GitHub</a>.</p>
+      <h2>What comes next</h2>
+      <p>We are early in understanding how engineers and autonomous software will work together over long horizons. If agents are going to operate across days, weeks and codebases with hundreds of thousands of lines, we cannot keep treating their working memory as an append-only text log. Context deserves the same rigour that systems engineers have applied to virtual memory, file systems and garbage collectors for fifty years.</p>
+      <p>Software development should be about building things that matter, not about managing a context window by hand.</p>
+      <p>I am Giona Granchelli, an engineer and founder at <a href="https://constant-labs.com">Constant Labs</a>, working on autonomous agent infrastructure, systems programming and local inference. My open source work lives on <a href="https://github.com/GionaGranchelli">GitHub</a>.</p>
+    `
   }
 ]
