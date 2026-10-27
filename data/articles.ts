@@ -847,4 +847,4 @@ Model provider</code></pre>
       <p>I am Giona Granchelli, an engineer and founder at <a href="https://constant-labs.com">Constant Labs</a>, working on autonomous agent infrastructure, systems programming and local inference. My open source work lives on <a href="https://github.com/GionaGranchelli">GitHub</a>.</p>
     `
   }
-]
+].sort((a, b) => b.date.localeCompare(a.date))
