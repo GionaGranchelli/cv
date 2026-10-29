@@ -35,7 +35,23 @@ useHead({
         url: 'https://gionag.com/plain',
         name: 'Giona Granchelli | CV',
         inLanguage: 'en',
-        mainEntity: { '@id': 'https://gionag.com/#person' }
+        mainEntity: {
+          '@type': 'Person',
+          '@id': 'https://gionag.com/#person',
+          name: 'Giona Granchelli',
+          jobTitle: 'Senior Software Engineer & Chapter Lead',
+          url: 'https://gionag.com',
+          image: {
+            '@type': 'ImageObject',
+            url: 'https://gionag.com/photo.jpg'
+          },
+          sameAs: [
+            'https://www.linkedin.com/in/giona-granchelli',
+            'https://github.com/GionaGranchelli',
+            'https://constant-labs.com',
+            'https://tramai.dev'
+          ]
+        }
       })
     }
   ]
